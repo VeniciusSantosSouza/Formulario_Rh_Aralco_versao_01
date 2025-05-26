@@ -1,0 +1,778 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario</title>
+    <link href="{% static 'css/design.css' %}" rel="stylesheet">
+    <!--<link rel="stylesheet" href="design.css">-->
+
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <img src="{% static 'imagens/logo.2.png'%}" alt="aralco">
+
+    <div class="titulo">
+        <h1>Formulário de instrução</h1>
+    </div>
+
+    <div class="tabs">
+        <button onclick="showTab(0)">Caminhão 🚛</button>
+        <button onclick="showTab(1)">Colhedora 🚜</button>
+        <button onclick="showTab(2)">Trator 🚜</button>
+        <button onclick="showTab(3)">Ranking líder ★</button>
+        <button onclick="showTab(4)">Histórico de instrução 📋</button>
+    </div>
+
+    <form method="POST" action="{% url 'coletar_dados_caminhao_forms' %}">
+        {% csrf_token %}
+
+        <!-- Aba Caminhão -->
+        <div class="tab">
+            <h2> Dados da instrução caminhão</h2>
+            <fieldset>
+                <label>Data:</label>
+                <input type="date" name="data">
+                <label>Hora:</label>
+                <input type="time" name="hora">
+                <p> Matrícula do instrutor: <input type="number" name=mi id="imi" /> </p>
+                <p> Nome do instrutor: <input type="text" name=ni id="ini" /> </p>
+                <p> Matrícula do condutor: <input type="number" name=mc id="imc" /> </p>
+                <p> Nome do condutor: <input type="text" name=nc id="inc" /> </p>
+                <p> Equipamento: <input type="number" name=equip id="iequip" /> </p>
+                <p> Local de saída: <input type="text" name=ls id="ils" /> </p>
+                <p> Hora da saída: <input type="time" name=hs id="ihs" /> </p>
+                <p> Km da saída: <input type="text" name=kms id="ikms" /> </p>
+                <p> Local de chegada: <input type="text" name=lc id="ilc" /> </p>
+                <p> Hora da chegada: <input type="time" name=hc id="ihc" /> </p>
+                <p> Km da chegada: <input type="text" name=kmc id="ikmc" /> </p>
+                <p> Viagem: <input type="text" name=vg id="ivg" /> </p>
+                <p> Média: <input type="text" name=md id="imd" /> </p>
+            </fieldset>
+
+            <div class="img_caminhao">
+                <img src="{% static 'imagens/caminhao.png'%}" alt="Caminhão">
+            </div>
+
+            <fieldset>
+                <div class="pos_avl">
+                    <legend class="alinhamento_avl">Operador mantenedor:</legend>
+                    <input type="radio" name="avaliacao_om" id="ruim1" value="R"> <label for="ruim1"> Ruim</label>
+                    <input type="radio" name="avaliacao_om" id="bom2" value="B"> <label for="bom2"> Bom</label>
+                    <input type="radio" name="avaliacao_om" id="otimo3" value="O"> <label for="otimo3"> Ótimo</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_avl">
+                    <legend class="alinhamento_avl">Digitação de bordo: </legend>
+                    <input type="radio" name="avaliacao_dg" id="ruim_dg" value="R"> <label for="ruim_dg"> Ruim</label>
+                    <input type="radio" name="avaliacao_dg" id="bom_dg" value="B"> <label for="bom_dg"> Bom</label>
+                    <input type="radio" name="avaliacao_dg" id="otimo_dg" value="O"> <label for="otimo_dg">
+                        Ótimo</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_avl">
+                    <legend class="alinhamento_avl">Ações autorizadas:</legend>
+                    <input type="radio" name="avaliacao_aa" id="ruim_aa" value="R"> <label for="ruim_aa"> Ruim</label>
+                    <input type="radio" name="avaliacao_aa" id="bom_aa" value="B"> <label for="bom_aa"> Bom</label>
+                    <input type="radio" name="avaliacao_aa" id="otimo_aa" value="O"> <label for="otimo_aa">
+                        Ótimo</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_avl">
+                    <legend class="alinhamento_avl">Operação:</legend>
+                    <input type="radio" name="avaliacao_or" id="ruim_op" value="R"> <label for="ruim_op"> Ruim</label>
+                    <input type="radio" name="avaliacao_or" id="bom_op" value="B"> <label for="bom_op"> Bom</label>
+                    <input type="radio" name="avaliacao_or" id="otimo_op" value="O"> <label for="otimo_op">
+                        Ótimo</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_avl">
+                    <legend class="alinhamento_avl">Avaliação do instrutor:</legend>
+                    <input type="radio" id="estrela1_caminhao" name="avaliacao_caminhao" value="5"><label
+                        for="estrela1_caminhao">★</label>
+                    <input type="radio" id="estrela2_caminhao" name="avaliacao_caminhao" value="4"><label
+                        for="estrela2_caminhao">★★</label>
+                    <input type="radio" id="estrela3_caminhao" name="avaliacao_caminhao" value="3"><label
+                        for="estrela3_caminhao">★★★</label>
+                    <input type="radio" id="estrela4_caminhao" name="avaliacao_caminhao" value="2"><label
+                        for="estrela4_caminhao">★★★★</label>
+                    <input type="radio" id="estrela5_caminhao" name="avaliacao_caminhao" value="1"><label
+                        for="estrela5_caminhao">★★★★★</label>
+                </div>
+            </fieldset>
+
+
+            <fieldset>
+                <h2> Observações </h2>
+                <textarea name="observacoes"></textarea><br>
+            </fieldset>
+
+            <p>
+                <input type="submit" value="Enviar"
+                    style="margin-right: 30px; width: 100px; height: 30px; font-size: 15px;">
+                <input type="reset" value="Limpar" style="width: 100px; height: 30px; font-size: 15px;">
+            </p>
+
+        </div>
+    </form>
+
+    <form method="POST" action="{% url 'coletar_dados_colhedora_forms' %}">
+        {% csrf_token%}
+        <!-- Aba colhedora -->
+        <div class="tab">
+            <h2>Dados da instrução colhedora</h2>
+            <fieldset>
+                <label>Data:</label>
+                <input type="date" name="data2">
+                <label>Hora:</label>
+                <input type="time" name="hora2">
+                <p> Matrícula do instrutor: <input type="number" name=mit id="imit" /> </p>
+                <p> Nome do instrutor: <input type="text" name=nit id="init" /> </p>
+                <p> Matrícula do condutor: <input type="number" name=mct id="imct" /> </p>
+                <p> Nome do condutor: <input type="text" name=nct id="inct" /> </p>
+                <p> Equipamento: <input type="number" name=equipt id="iequipt" /> </p>
+                <p> Hora da saída: <input type="time" name=hsa id="ihsa" /> </p>
+                <p> Hora da chegada: <input type="time" name=hca id="ihca" /> </p>
+                <p> Horímetro inicial <input type="number" name=hori id="ihori" /> </p>
+                <p> Horímetro final: <input type="number" name=horif id="ihorif" /> </p>
+                <p> Frente: <input type="number" name=cldfrente id="icldfrente" /> </p>
+            </fieldset>
+
+            <div class="img_colhedora">
+                <img src="{% static 'imagens/img_colhedora.png'%}" alt="Colhedora">
+            </div>
+
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Operador mantenedor:</legend>
+                    <input type="radio" id="estrela1_colhedora" name="avaliacao_om2" value="5"><label
+                        for="estrela1_colhedora">★</label>
+                    <input type="radio" id="estrela2_colhedora" name="avaliacao_om2" value="4"><label
+                        for="estrela2_colhedora">★★</label>
+                    <input type="radio" id="estrela3_colhedora" name="avaliacao_om2" value="3"><label
+                        for="estrela3_colhedora">★★★</label>
+                    <input type="radio" id="estrela4_colhedora" name="avaliacao_om2" value="2"><label
+                        for="estrela4_colhedora">★★★★</label>
+                    <input type="radio" id="estrela5_colhedora" name="avaliacao_om2" value="1"><label
+                        for="estrela5_colhedora">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Digitação bordo:</legend>
+                    <input type="radio" id="estrela6_colhedora" name="avaliacao_bord2" value="5"><label
+                        for="estrela6_colhedora">★</label>
+                    <input type="radio" id="estrela7_colhedora" name="avaliacao_bord2" value="4"><label
+                        for="estrela7_colhedora">★★</label>
+                    <input type="radio" id="estrela8_colhedora" name="avaliacao_bord2" value="3"><label
+                        for="estrela8_colhedora">★★★</label>
+                    <input type="radio" id="estrela9_colhedora" name="avaliacao_bord2" value="2"><label
+                        for="estrela9_colhedora">★★★★</label>
+                    <input type="radio" id="estrela10_colhedora" name="avaliacao_bord2" value="1"><label
+                        for="estrela10_colhedora">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Ações autorizadas:</legend>
+                    <input type="radio" id="estrela11_colhedora" name="avaliacao_aut2" value="5"><label
+                        for="estrela11_colhedora">★</label>
+                    <input type="radio" id="estrela12_colhedora" name="avaliacao_aut2" value="4"><label
+                        for="estrela12_colhedora">★★</label>
+                    <input type="radio" id="estrela13_colhedora" name="avaliacao_aut2" value="3"><label
+                        for="estrela13_colhedora">★★★</label>
+                    <input type="radio" id="estrela14_colhedora" name="avaliacao_aut2" value="2"><label
+                        for="estrela14_colhedora">★★★★</label>
+                    <input type="radio" id="estrela15_colhedora" name="avaliacao_aut2" value="1"><label
+                        for="estrela15_colhedora">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Operação:</legend>
+                    <input type="radio" id="estrela16_colhedora" name="avaliacao_op2" value="5"><label
+                        for="estrela16_colhedora">★</label>
+                    <input type="radio" id="estrela17_colhedora" name="avaliacao_op2" value="4"><label
+                        for="estrela17_colhedora">★★</label>
+                    <input type="radio" id="estrela18_colhedora" name="avaliacao_op2" value="3"><label
+                        for="estrela18_colhedora">★★★</label>
+                    <input type="radio" id="estrela19_colhedora" name="avaliacao_op2" value="2"><label
+                        for="estrela19_colhedora">★★★★</label>
+                    <input type="radio" id="estrela20_colhedora" name="avaliacao_op2" value="1"><label
+                        for="estrela20_colhedora">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Pressão do corte base:</legend>
+                    <input type="radio" id="estrela21_colhedora" name="avaliacao_pcb" value="5"><label
+                        for="estrela21_colhedora">★</label>
+                    <input type="radio" id="estrela22_colhedora" name="avaliacao_pcb" value="4"><label
+                        for="estrela22_colhedora">★★</label>
+                    <input type="radio" id="estrela23_colhedora" name="avaliacao_pcb" value="3"><label
+                        for="estrela23_colhedora">★★★</label>
+                    <input type="radio" id="estrela24_colhedora" name="avaliacao_pcb" value="2"><label
+                        for="estrela24_colhedora">★★★★</label>
+                    <input type="radio" id="estrela25_colhedora" name="avaliacao_pcb" value="1"><label
+                        for="estrela25_colhedora">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Pressão do picador:</legend>
+                    <input type="radio" id="estrela26_colhedora" name="avaliacao_pp" value="5"><label
+                        for="estrela26_colhedora">★</label>
+                    <input type="radio" id="estrela27_colhedora" name="avaliacao_pp" value="4"><label
+                        for="estrela27_colhedora">★★</label>
+                    <input type="radio" id="estrela28_colhedora" name="avaliacao_pp" value="3"><label
+                        for="estrela28_colhedora">★★★</label>
+                    <input type="radio" id="estrela29_colhedora" name="avaliacao_pp" value="2"><label
+                        for="estrela29_colhedora">★★★★</label>
+                    <input type="radio" id="estrela30_colhedora" name="avaliacao_pp" value="1"><label
+                        for="estrela30_colhedora">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Configuração (CB central):</legend>
+                    <input type="radio" id="estrela31_colhedora" name="avaliacao_cb" value="5"><label
+                        for="estrela31_colhedora">★</label>
+                    <input type="radio" id="estrela32_colhedora" name="avaliacao_cb" value="4"><label
+                        for="estrela32_colhedora">★★</label>
+                    <input type="radio" id="estrela33_colhedora" name="avaliacao_cb" value="3"><label
+                        for="estrela33_colhedora">★★★</label>
+                    <input type="radio" id="estrela34_colhedora" name="avaliacao_cb" value="2"><label
+                        for="estrela34_colhedora">★★★★</label>
+                    <input type="radio" id="estrela35_colhedora" name="avaliacao_cb" value="1"><label
+                        for="estrela35_colhedora">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Sincronismo transbordo:</legend>
+                    <input type="radio" id="estrela36_colhedora" name="avaliacao_st" value="5"><label
+                        for="estrela36_colhedora">★</label>
+                    <input type="radio" id="estrela37_colhedora" name="avaliacao_st" value="4"><label
+                        for="estrela37_colhedora">★★</label>
+                    <input type="radio" id="estrela38_colhedora" name="avaliacao_st" value="3"><label
+                        for="estrela38_colhedora">★★★</label>
+                    <input type="radio" id="estrela39_colhedora" name="avaliacao_st" value="2"><label
+                        for="estrela39_colhedora">★★★★</label>
+                    <input type="radio" id="estrela40_colhedora" name="avaliacao_st" value="1"><label
+                        for="estrela40_colhedora">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Velocidade constante:</legend>
+                    <input type="radio" id="estrela41_colhedora" name="avaliacao_vc2" value="5"><label
+                        for="estrela41_colhedora">★</label>
+                    <input type="radio" id="estrela42_colhedora" name="avaliacao_vc2" value="4"><label
+                        for="estrela42_colhedora">★★</label>
+                    <input type="radio" id="estrela43_colhedora" name="avaliacao_vc2" value="3"><label
+                        for="estrela43_colhedora">★★★</label>
+                    <input type="radio" id="estrela44_colhedora" name="avaliacao_vc2" value="2"><label
+                        for="estrela44_colhedora">★★★★</label>
+                    <input type="radio" id="estrela45_colhedora" name="avaliacao_vc2" value="1"><label
+                        for="estrela45_colhedora">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Utilização de tecnologia:</legend>
+                    <input type="radio" id="estrela46_colhedora" name="avaliacao_tec" value="5"><label
+                        for="estrela46_colhedora">★</label>
+                    <input type="radio" id="estrela47_colhedora" name="avaliacao_tec" value="4"><label
+                        for="estrela47_colhedora">★★</label>
+                    <input type="radio" id="estrela48_colhedora" name="avaliacao_tec" value="3"><label
+                        for="estrela48_colhedora">★★★</label>
+                    <input type="radio" id="estrela49_colhedora" name="avaliacao_tec" value="2"><label
+                        for="estrela49_colhedora">★★★★</label>
+                    <input type="radio" id="estrela50_colhedora" name="avaliacao_tec" value="1"><label
+                        for="estrela50_colhedora">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Senso de dono:</legend>
+                    <input type="radio" id="estrela51_colhedora" name="avaliacao_sdd2" value="5"><label
+                        for="estrela51_colhedora">★</label>
+                    <input type="radio" id="estrela52_colhedora" name="avaliacao_sdd2" value="4"><label
+                        for="estrela52_colhedora">★★</label>
+                    <input type="radio" id="estrela53_colhedora" name="avaliacao_sdd2" value="3"><label
+                        for="estrela53_colhedora">★★★</label>
+                    <input type="radio" id="estrela54_colhedora" name="avaliacao_sdd2" value="2"><label
+                        for="estrela54_colhedora">★★★★</label>
+                    <input type="radio" id="estrela55_colhedora" name="avaliacao_sdd2" value="1"><label
+                        for="estrela55_colhedora">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Avaliação geral do instrutor:</legend>
+                    <input type="radio" id="estrela56_colhedora" name="avaliacao_gi" value="5"><label
+                        for="estrela56_colhedora">★</label>
+                    <input type="radio" id="estrela57_colhedora" name="avaliacao_gi" value="4"><label
+                        for="estrela57_colhedora">★★</label>
+                    <input type="radio" id="estrela58_colhedora" name="avaliacao_gi" value="3"><label
+                        for="estrela58_colhedora">★★★</label>
+                    <input type="radio" id="estrela59_colhedora" name="avaliacao_gi" value="2"><label
+                        for="estrela59_colhedora">★★★★</label>
+                    <input type="radio" id="estrela60_colhedora" name="avaliacao_gi" value="1"><label
+                        for="estrela60_colhedora">★★★★★</label>
+                </div>
+            </fieldset>
+
+
+            <fieldset>
+                <h2> Observações </h2>
+                <textarea name="observacoes"></textarea><br>
+            </fieldset>
+
+            <p>
+                <input type="submit" value="Enviar"
+                    style="margin-right: 30px; width: 100px; height: 30px; font-size: 15px;">
+                <input type="reset" value="Limpar" style="width: 100px; height: 30px; font-size: 15px;">
+            </p>
+        </div>
+    </form>
+
+
+
+    <!-- Aba trator -->
+    <form method="POST" action="{% url 'coletar_dados_trator_forms' %}">
+        {% csrf_token %}
+        <div class="tab">
+            <h2>Dados da instrução trator</h2>
+
+            <fieldset>
+                <label>Data:</label>
+                <input type="date" name="data3">
+                <label>Hora:</label>
+                <input type="time" name="hora3">
+                <p> Matrícula do instrutor: <input type="number" name=mit2 id="imit2" /> </p>
+                <p> Nome do instrutor: <input type="text" name=nit2 id="init2" /> </p>
+                <p> Matrícula do condutor: <input type="number" name=mct2 id="imct2" /> </p>
+                <p> Nome do condutor: <input type="text" name=nct2 id="inct2" /> </p>
+                <p> Equipamento: <input type="number" name=equipt2 id="iequipt2" /> </p>
+                <p> Local de saída: <input type="text" name=lsa2 id="ilsa2" /> </p>
+                <p> Hora da saída: <input type="time" name=hsa2 id="ihsa2" /> </p>
+                <p> Local de chegada: <input type="text" name=lca2 id="ilca2" /> </p>
+                <p> Hora da chegada: <input type="time" name=hca2 id="ihca2" /> </p>
+                <p> Horímetro inicial <input type="number" name=hori2 id="ihori2" /> </p>
+                <p> Horímetro final: <input type="number" name=horif2 id="ihorif2" /> </p>
+            </fieldset>
+
+            <div class="img_trator">
+                <img src="{% static 'imagens/img_trator.png'%}" alt="Trator">
+            </div>
+
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Operador mantenedor:</legend>
+                    <input type="radio" id="estrela1_trator" name="avaliacao_opm" value="5"><label
+                        for="estrela1_trator">★</label>
+                    <input type="radio" id="estrela2_trator" name="avaliacao_opm" value="4"><label
+                        for="estrela2_trator">★★</label>
+                    <input type="radio" id="estrela3_trator" name="avaliacao_opm" value="3"><label
+                        for="estrela3_trator">★★★</label>
+                    <input type="radio" id="estrela4_trator" name="avaliacao_opm" value="2"><label
+                        for="estrela4_trator">★★★★</label>
+                    <input type="radio" id="estrela5_trator" name="avaliacao_opm" value="1"><label
+                        for="estrela5_trator">★★★★★</label>
+                </div>
+            </fieldset>
+
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Digitação bordo:</legend>
+                    <input type="radio" id="estrela6_trator" name="avaliacao_bordo" value="5"><label
+                        for="estrela6_trator">★</label>
+                    <input type="radio" id="estrela7_trator" name="avaliacao_bordo" value="4"><label
+                        for="estrela7_trator">★★</label>
+                    <input type="radio" id="estrela8_trator" name="avaliacao_bordo" value="3"><label
+                        for="estrela8_trator">★★★</label>
+                    <input type="radio" id="estrela9_trator" name="avaliacao_bordo" value="2"><label
+                        for="estrela9_trator">★★★★</label>
+                    <input type="radio" id="estrela10_trator" name="avaliacao_bordo" value="1"><label
+                        for="estrela10_trator">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Ações autorizadas:</legend>
+                    <input type="radio" id="estrela11_trator" name="avaliacao_autz" value="5"><label
+                        for="estrela11_trator">★</label>
+                    <input type="radio" id="estrela12_trator" name="avaliacao_autz" value="4"><label
+                        for="estrela12_trator">★★</label>
+                    <input type="radio" id="estrela13_trator" name="avaliacao_autz" value="3"><label
+                        for="estrela13_trator">★★★</label>
+                    <input type="radio" id="estrela14_trator" name="avaliacao_autz" value="2"><label
+                        for="estrela14_trator">★★★★</label>
+                    <input type="radio" id="estrela15_trator" name="avaliacao_autz" value="1"><label
+                        for="estrela15_trator">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Operação:</legend>
+                    <input type="radio" id="estrela16_trator" name="avaliacao_opo" value="5"><label
+                        for="estrela16_trator">★</label>
+                    <input type="radio" id="estrela17_trator" name="avaliacao_opo" value="4"><label
+                        for="estrela17_trator">★★</label>
+                    <input type="radio" id="estrela18_trator" name="avaliacao_opo" value="3"><label
+                        for="estrela18_trator">★★★</label>
+                    <input type="radio" id="estrela19_trator" name="avaliacao_opo" value="2"><label
+                        for="estrela19_trator">★★★★</label>
+                    <input type="radio" id="estrela20_trator" name="avaliacao_opo" value="1"><label
+                        for="estrela20_trator">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Avaliação do instrutor:</legend>
+                    <input type="radio" id="estrela21_trator" name="avaliacao_inst" value="5"><label
+                        for="estrela21_trator">★</label>
+                    <input type="radio" id="estrela22_trator" name="avaliacao_inst" value="4"><label
+                        for="estrela22_trator">★★</label>
+                    <input type="radio" id="estrela23_trator" name="avaliacao_inst" value="3"><label
+                        for="estrela23_trator">★★★</label>
+                    <input type="radio" id="estrela24_trator" name="avaliacao_inst" value="2"><label
+                        for="estrela24_trator">★★★★</label>
+                    <input type="radio" id="estrela25_trator" name="avaliacao_inst" value="1"><label
+                        for="estrela25_trator">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Rotações:</legend>
+                    <input type="radio" id="estrela26_trator" name="avaliacao_rot" value="5"><label
+                        for="estrela26_trator">★</label>
+                    <input type="radio" id="estrela27_trator" name="avaliacao_rot" value="4"><label
+                        for="estrela27_trator">★★</label>
+                    <input type="radio" id="estrela28_trator" name="avaliacao_rot" value="3"><label
+                        for="estrela28_trator">★★★</label>
+                    <input type="radio" id="estrela29_trator" name="avaliacao_rot" value="2"><label
+                        for="estrela29_trator">★★★★</label>
+                    <input type="radio" id="estrela30_trator" name="avaliacao_rot" value="1"><label
+                        for="estrela30_trator">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Senso de dono:</legend>
+                    <input type="radio" id="estrela31_trator" name="avaliacao_sdono" value="5"><label
+                        for="estrela31_trator">★</label>
+                    <input type="radio" id="estrela32_trator" name="avaliacao_sdono" value="4"><label
+                        for="estrela32_trator">★★</label>
+                    <input type="radio" id="estrela33_trator" name="avaliacao_sdono" value="3"><label
+                        for="estrela33_trator">★★★</label>
+                    <input type="radio" id="estrela34_trator" name="avaliacao_sdono" value="2"><label
+                        for="estrela34_trator">★★★★</label>
+                    <input type="radio" id="estrela35_trator" name="avaliacao_sdono" value="1"><label
+                        for="estrela35_trator">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Troca de marcha:</legend>
+                    <input type="radio" id="estrela36_trator" name="avaliacao_tm" value="5"><label
+                        for="estrela36_trator">★</label>
+                    <input type="radio" id="estrela37_trator" name="avaliacao_tm" value="4"><label
+                        for="estrela37_trator">★★</label>
+                    <input type="radio" id="estrela38_trator" name="avaliacao_tm" value="3"><label
+                        for="estrela38_trator">★★★</label>
+                    <input type="radio" id="estrela39_trator" name="avaliacao_tm" value="2"><label
+                        for="estrela39_trator">★★★★</label>
+                    <input type="radio" id="estrela40_trator" name="avaliacao_tm" value="1"><label
+                        for="estrela40_trator">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Troca de embreagem:</legend>
+                    <input type="radio" id="estrela41_trator" name="avaliacao_te" value="5"><label
+                        for="estrela41_trator">★</label>
+                    <input type="radio" id="estrela42_trator" name="avaliacao_te" value="4"><label
+                        for="estrela42_trator">★★</label>
+                    <input type="radio" id="estrela43_trator" name="avaliacao_te" value="3"><label
+                        for="estrela43_trator">★★★</label>
+                    <input type="radio" id="estrela44_trator" name="avaliacao_te" value="2"><label
+                        for="estrela44_trator">★★★★</label>
+                    <input type="radio" id="estrela545_trator" name="avaliacao_te" value="1"><label
+                        for="estrela45_trator">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Velocidade constante:</legend>
+                    <input type="radio" id="estrela46_trator" name="avaliacao_vct" value="5"><label
+                        for="estrela46_trator">★</label>
+                    <input type="radio" id="estrela47_trator" name="avaliacao_vct" value="4"><label
+                        for="estrela47_trator">★★</label>
+                    <input type="radio" id="estrela48_trator" name="avaliacao_vct" value="3"><label
+                        for="estrela48_trator">★★★</label>
+                    <input type="radio" id="estrela49_trator" name="avaliacao_vct" value="2"><label
+                        for="estrela49_trator">★★★★</label>
+                    <input type="radio" id="estrela50_trator" name="avaliacao_vct" value="1"><label
+                        for="estrela50_trator">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Sincronismo colhedora:</legend>
+                    <input type="radio" id="estrela51_trator" name="avaliacao_sc" value="5"><label
+                        for="estrela51_trator">★</label>
+                    <input type="radio" id="estrela52_trator" name="avaliacao_sc" value="4"><label
+                        for="estrela52_trator">★★</label>
+                    <input type="radio" id="estrela53_trator" name="avaliacao_sc" value="3"><label
+                        for="estrela53_trator">★★★</label>
+                    <input type="radio" id="estrela54_trator" name="avaliacao_sc" value="2"><label
+                        for="estrela54_trator">★★★★</label>
+                    <input type="radio" id="estrela55_trator" name="avaliacao_sc" value="1"><label
+                        for="estrela55_trator">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Paralelismo:</legend>
+                    <input type="radio" id="estrela56_trator" name="avaliacao_pl" value="5"><label
+                        for="estrela56_trator">★</label>
+                    <input type="radio" id="estrela57_trator" name="avaliacao_pl" value="4"><label
+                        for="estrela57_trator">★★</label>
+                    <input type="radio" id="estrela58_trator" name="avaliacao_pl" value="3"><label
+                        for="estrela58_trator">★★★</label>
+                    <input type="radio" id="estrela59_trator" name="avaliacao_pl" value="2"><label
+                        for="estrela59_trator">★★★★</label>
+                    <input type="radio" id="estrela60_trator" name="avaliacao_pl" value="1"><label
+                        for="estrela60_trator">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <h2> Observações </h2>
+                <textarea name="observacoes"></textarea><br>
+            </fieldset>
+
+            <p>
+                <input type="submit" value="Enviar"
+                    style="margin-right: 30px; width: 100px; height: 30px; font-size: 15px;">
+                <input type="reset" value="Limpar" style="width: 100px; height: 30px; font-size: 15px;">
+            </p>
+        </div>
+    </form>
+
+    <!-- Aba lider -->
+    <form method="POST" action="{% url 'coletar_dados_lider_forms' %}">
+        {% csrf_token %}
+        <div class="tab">
+            <h2>Ranking Líder</h2>
+            <fieldset>
+                <label>Data:</label>
+                <input type="date" name="data4">
+                <label>Hora:</label>
+                <input type="time" name="hora4">
+                <p> Matrícula do instrutor: <input type="number" name=mit3 id="imit3" /> </p>
+                <p> Nome do instrutor: <input type="text" name=nit3 id="init3" /> </p>
+                <p> Matrícula do líder: <input type="number" name=mctl3 id="imctl3" /> </p>
+                <p> Nome do líder: <input type="text" name=nctl3 id="inctl3" /> </p>
+                <p> Frente: <input type="number" name=ldrfrente id="ildrfrente" /> </p>
+                <p> Fazenda: <input type="text" name=fazenda id="ifazenda" /> </p>
+                <p> Unidade: <input type="number" name=unidade id="iunidade" /> </p>
+            </fieldset>
+
+            <div class="img_lider">
+                <img src="{% static 'imagens/img_grafico.png'%}" alt="Ranking líder">
+            </div>
+
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Organização da área de transbordamento:</legend>
+                    <input type="radio" id="estrela1_lider" name="avaliacao_lider1" value="5"><label
+                        for="estrela1_lider">★</label>
+                    <input type="radio" id="estrela2_lider" name="avaliacao_lider1" value="4"><label
+                        for="estrela2_lider">★★</label>
+                    <input type="radio" id="estrela3_lider" name="avaliacao_lider1" value="3"><label
+                        for="estrela3_lider">★★★</label>
+                    <input type="radio" id="estrela4_lider" name="avaliacao_lider1" value="2"><label
+                        for="estrela4_lider">★★★★</label>
+                    <input type="radio" id="estrela5_lider" name="avaliacao_lider1" value="1"><label
+                        for="estrela5_lider">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Abertura de aceiros - distribuição das colhedoras:</legend>
+                    <input type="radio" id="estrela6_lider" name="avaliacao_lider2" value="5"><label
+                        for="estrela6_lider">★</label>
+                    <input type="radio" id="estrela7_lider" name="avaliacao_lider2" value="4"><label
+                        for="estrela7_lider">★★</label>
+                    <input type="radio" id="estrela8_lider" name="avaliacao_lider2" value="3"><label
+                        for="estrela8_lider">★★★</label>
+                    <input type="radio" id="estrela9_lider" name="avaliacao_lider2" value="2"><label
+                        for="estrela9_lider">★★★★</label>
+                    <input type="radio" id="estrela10_lider" name="avaliacao_lider2" value="1"><label
+                        for="estrela10_lider">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Produção - Tempo de carregamento por metros lineares:</legend>
+                    <input type="radio" id="estrela11_lider" name="avaliacao_lider3" value="5"><label
+                        for="estrela11_lider">★</label>
+                    <input type="radio" id="estrela12_lider" name="avaliacao_lider3" value="4"><label
+                        for="estrela12_lider">★★</label>
+                    <input type="radio" id="estrela13_lider" name="avaliacao_lider3" value="3"><label
+                        for="estrela13_lider">★★★</label>
+                    <input type="radio" id="estrela14_lider" name="avaliacao_lider3" value="2"><label
+                        for="estrela14_lider">★★★★</label>
+                    <input type="radio" id="estrela15_lider" name="avaliacao_lider3" value="1"><label
+                        for="estrela15_lider">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Qualidade de colheita - Vegetal - Mineral - Altura do corte:
+                    </legend>
+                    <input type="radio" id="estrela16_lider" name="avaliacao_lider4" value="5"><label
+                        for="estrela16_lider">★</label>
+                    <input type="radio" id="estrela17_lider" name="avaliacao_lider4" value="4"><label
+                        for="estrela17_lider">★★</label>
+                    <input type="radio" id="estrela18_lider" name="avaliacao_lider4" value="3"><label
+                        for="estrela18_lider">★★★</label>
+                    <input type="radio" id="estrela19_lider" name="avaliacao_lider4" value="2"><label
+                        for="estrela19_lider">★★★★</label>
+                    <input type="radio" id="estrela20_lider" name="avaliacao_lider4" value="1"><label
+                        for="estrela20_lider">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Aproveitamento do tempo da colhedora:</legend>
+                    <input type="radio" id="estrela21_lider" name="avaliacao_lider5" value="5"><label
+                        for="estrela21_lider">★</label>
+                    <input type="radio" id="estrela22_lider" name="avaliacao_lider5" value="4"><label
+                        for="estrela22_lider">★★</label>
+                    <input type="radio" id="estrela23_lider" name="avaliacao_lider5" value="3"><label
+                        for="estrela23_lider">★★★</label>
+                    <input type="radio" id="estrela24_lider" name="avaliacao_lider5" value="2"><label
+                        for="estrela24_lider">★★★★</label>
+                    <input type="radio" id="estrela25_lider" name="avaliacao_lider5" value="1"><label
+                        for="estrela25_lider">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Liderança com equipe:</legend>
+                    <input type="radio" id="estrela26_lider" name="avaliacao_lider6" value="5"><label
+                        for="estrela26_lider">★</label>
+                    <input type="radio" id="estrela27_lider" name="avaliacao_lider6" value="4"><label
+                        for="estrela27_lider">★★</label>
+                    <input type="radio" id="estrela28_lider" name="avaliacao_lider6" value="3"><label
+                        for="estrela28_lider">★★★</label>
+                    <input type="radio" id="estrela29_lider" name="avaliacao_lider6" value="2"><label
+                        for="estrela29_lider">★★★★</label>
+                    <input type="radio" id="estrela30_lider" name="avaliacao_lider6" value="1"><label
+                        for="estrela30_lider">★★★★★</label>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="pos_estrela">
+                    <legend class="alinhamento_estrela">Avaliação final do instrutor:</legend>
+                    <input type="radio" id="estrela31_lider" name="avaliacao_lider7" value="5"><label
+                        for="estrela31_lider">★</label>
+                    <input type="radio" id="estrela32_lider" name="avaliacao_lider7" value="4"><label
+                        for="estrela32_lider">★★</label>
+                    <input type="radio" id="estrela33_lider" name="avaliacao_lider7" value="3"><label
+                        for="estrela33_lider">★★★</label>
+                    <input type="radio" id="estrela34_lider" name="avaliacao_lider7" value="2"><label
+                        for="estrela34_lider">★★★★</label>
+                    <input type="radio" id="estrela35_lider" name="avaliacao_lider7" value="1"><label
+                        for="estrela35_lider">★★★★★</label>
+                </div>
+            </fieldset>
+
+
+            <fieldset>
+                <h2> Observações </h2>
+                <textarea name="observacoes"></textarea><br>
+            </fieldset>
+
+            <p>
+                <input type="submit" value="Enviar"
+                    style="margin-right: 30px; width: 100px; height: 30px; font-size: 15px;">
+                <input type="reset" value="Limpar" style="width: 100px; height: 30px; font-size: 15px;">
+            </p>
+        </div>
+    </form>
+
+    <!-- Aba histórico de instrução -->
+    <form action="buscar">
+        <div class="tab">
+            <p>
+                <input type="search" name "buscar" placeholder="Pesquisar"
+                    style="width: 500px; height: 30px; font-size: 15px;">
+                <input type="submit" value="Busca" style="width: 100px; height: 30px; font-size: 15px;">
+            </p>
+        </div>
+    </form>
+
+
+    <script>
+        const tabs = document.querySelectorAll('.tab');
+        function showTab(index) {
+            tabs.forEach((tab, i) => {
+                tab.classList.toggle('active', i === index);
+            });
+        }
+    </script>
+
+
+
+</body>
+
+</html>

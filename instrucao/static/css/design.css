@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Share+Tech&display=swap');
+ *{
+    
+    font-family: "Share Tech", sans-serif;
+   
+ }
+ 
+ body{
+   background-color:rgb(0, 0, 0);
+  }
+  
+      /*divisoria campos*/
+      .tab{
+       display: none;
+       color: #FFFFFF;
+       width: 60%;
+       border: none;
+       box-sizing: border-box;
+      }
+      /*divisoria campos*/
+
+      .tab.active {
+       display: block;
+      }
+    
+      /*abas botões*/
+      .tabs button {
+       margin: 10px;
+       padding: 20px;
+       width:30%;
+       color:rgb(0, 0, 0); 
+       box-sizing: border-box;
+       font-size: 20px; 
+      }
+      /*abas botões*/
+
+      
+      .titulo{
+        display: flex;
+       color: #FFFFFF;
+       font-size: 20px;
+      }
+
+      /*design campo estrela*/
+      .pos_estrela{
+       display: flex;
+       gap: 8px;             
+       margin-bottom: 5px;   
+       font-size: 20px;
+       color: white;
+
+      }
+
+      .pos_estrela .alinhamento_estrela{
+          width: 250px; 
+          margin-left: 10px;
+          margin-bottom: 5px;
+        }
+
+        .pos_estrela label {
+         margin-right: 10px;
+         }
+        /*design campo estrela/*
+  
+       /*design paragrafos*/
+       input[type="text"],
+       input[type="number"],
+       input[type="time"],
+       input[type="date"] {
+        padding: 5px;
+        width: 200px;
+        border: none;
+        border-radius: 5px;
+        display: flex;
+        }
+        /*design paragrafos*/
+
+        /*design posição das avaliações*/
+        .pos_avl{
+          display: flex;
+          font-size: 15px;
+          gap: 8px;             
+         margin-bottom: 5px;   
+         font-size: 20px;
+         color: white;
+        }
+
+        .pos_avl .alinhamento_avl{
+          width: 200px; 
+          margin-right: 10px;
+        }
+
+        .pos_avl label {
+         margin-right: 15px;
+         white-space: nowrap;
+         }
+         /*design posição das avaliações*/
+
+         /*design imagens*/
+         .img_caminhao{
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+         }
+
+         .img_caminhao img{
+          width: 500px;
+         }
+
+         .img_colhedora{
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+         }
+
+         .img_colhedora img{
+          width: 500px;
+         }
+
+          .img_trator{
+          position: fixed;
+          bottom: 10px;
+          right: 10px;
+         }
+
+         .img_trator img{
+          width: 500px;
+         }
+
+          .img_lider{
+          position: fixed;
+          bottom: 20px;
+          right: 80px;
+         }
+
+         .img_lider img{
+          width: 350px;
+         }
+         /*design imagens*/
+
+         
+
