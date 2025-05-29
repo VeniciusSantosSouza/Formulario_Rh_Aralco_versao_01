@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados da Busca</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h2, h3 { color: #2c3e50; }
+        p { margin: 5px 0; }
+        .categoria { margin-top: 30px; }
+        .sem-resultado { color: #999; }
+    </style>
+</head>
+<body>
+
+    <h2>Resultados para "{{ query }}"</h2>
+
+    {% if caminhao_resultados %}
+    <div class="categoria">
+        <h3>Caminhão</h3>
+        {% for item in caminhao_resultados %}
+            <p>{{ item.nome_condutor_caminhao }} - Equipamento: {{ item.equipamento_caminhao }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if trator_resultados %}
+    <div class="categoria">
+        <h3>Trator</h3>
+        {% for item in trator_resultados %}
+            <p>{{ item.nome_condutor_trator }} - Equipamento: {{ item.equipamento_trator }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if colhedora_resultados %}
+    <div class="categoria">
+        <h3>Colhedora</h3>
+        {% for item in colhedora_resultados %}
+            <p>{{ item.nome_condutor_colhedora }} - Equipamento: {{ item.equipamento_colhedora }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if lider_resultados %}
+    <div class="categoria">
+        <h3>Líder</h3>
+        {% for item in lider_resultados %}
+            <p>{{ item.nome_do_lider }} - Frente: {{ item.frente_lider }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if not caminhao_resultados and not trator_resultados and not colhedora_resultados and not lider_resultados %}
+        <p class="sem-resultado">Nenhum resultado encontrado.</p>
+    {% endif %}
+
+</body>
+</html>

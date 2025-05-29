@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Erro ao salvar</title>
+    <style>
+        body {
+            background-color: #fff0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .erro-container {
+            background-color: #ffffff;
+            border: 2px solid #f44336;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+        }
+
+        .erro-container h1 {
+            color: #f44336;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .erro-container p {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .erro-container ul {
+            text-align: left;
+            color: #c0392b;
+            margin-top: 20px;
+        }
+
+        .erro-container a {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 24px;
+            background-color: #f44336;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .erro-container a:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="erro-container">
+        <h1>❌ Erro ao salvar os dados</h1>
+        <p>Por favor, corrija os erros no formulário antes de reenviar.</p>
+        <a href="{% url 'instrucao:pagina_principal' %}">Voltar para o formulário</a>
+    </div>
+</body>
+</html>

@@ -10,7 +10,13 @@ from .models import Caminhao
 from .models import Trator
 from .models import Colhedora
 from .models import Lider
+from django.db.models import Q
 
+def erro(request):
+    return render(request, 'instrucao/erro.html')
+
+def sucesso(request):
+    return render(request, 'instrucao/sucesso.html')
 
 
 def instrucao(request):
@@ -32,12 +38,17 @@ def caminhaoFormsdados(request):
         form = CaminhaoForm(request.POST) 
         print("POST recebido:", request.POST) 
         if form.is_valid(): 
+            form.save()
             print("Formulário válido, salvando...")
-            return HttpResponse("Dados salvos com sucesso!")
+            return render(request, 'instrucao/sucesso.html')
         else:
-                print("Formulário inválido, NÃO salvando nada.")
-                print(form.errors)
-                return render(request, 'instrucao/rh_instrucao.html',{'form': form})
+            print("Formulario inválido, NÃO salvou nada.")
+            print(form.errors)
+            
+            return render(request, 'instrucao/erro.html')
+    else:
+        form = CaminhaoForm()
+        return render(request, 'instrucao/rh_instrucao.html',{'form': form})
 
 
 
@@ -48,23 +59,30 @@ def tratorFormsdados(request):
         if form.is_valid():
             dados = form.cleaned_data
             form.save() 
-            return HttpResponse("Dados salvos com sucesso!")
+            return render(request, 'instrucao/sucesso.html')
         else:
-            return render(request, 'instrucao/rh_instrucao.html',{'form': form})
+            print("Formulário inválido, NÃO salvou nada.")
+            print(form.errors)
+            
+            return render(request, 'instrucao/erro.html')
     else:
         form = TratorForm()
         return render(request, 'instrucao/rh_instrucao.html', {'form': form})
+
+
 
 def colhedoraFormsdados(request):
     if request.method == 'POST':
         form = ColhedoraForm(request.POST)
         print("POST recebido:", request.POST)
-        if form.is_valid():
-            dados = form.cleaned_data
+        if form.is_valid():        
             form.save()
-            return HttpResponse("Dados salvos com sucesso !")
+            return render(request, 'instrucao/sucesso.html')
         else:
-            return render(request, 'instrucao/rh_instrucao.html', {'form': form})
+            print("Formulário inválido, NÃO salvou nada.")
+            print(form.errors) 
+
+            return render(request, 'instrucao/erro.html')
     else:
         form = ColhedoraForm()
         return render(request, 'instrucao/rh_instrucao.html', {'form' : form})
@@ -79,16 +97,149 @@ def LiderFormdados(request):
             dados = form.cleaned_data
             form.save()
             #return redirect('resultlider')
-            return HttpResponse("Dados salvos com sucesso !")
+            return render(request, 'instrucao/sucesso.html')
         else:
-            return render(request, 'instrucao/rh_instrucao.html', {'form' : form})
+            print("Formulario inválido, NÃO salvou nada.")
+            print(form.errors)
+
+            return render(request, 'instrucao/erro.html')
     else:
         form = LiderForm()
         return render(request, 'instrucao/rh_instrucao.html',{'form' : form})
 
 
 
+def BuscarGeral(request):
+    query = request.GET.get('buscar', '')
+    tipo = request.GET.get('tipo', '')
+    
+    caminhao_resultados = []
+    colhedora_resultados = []
+    trator_resultato = []
+    lider_resultados = []
+
+    if query:
+        if tipo == 'caminhao' or tipo == '':
+            caminhao_resultados = Caminhao.objects.filter(
+                Q(data_caminhao__icontains=query) |
+                Q(hora_caminhao__icontains=query) |
+                Q(matricula_instrutor_caminhao__icontains=query) |
+                Q(nome_instrutor_caminhao__icontains=query) |
+                Q(matricula_condutor_caminhao__icontains=query) |
+                Q(nome_condutor_caminhao__icontains=query) |
+                Q(equipamento_caminhao__icontains=query) |
+                Q(local_saida_caminhao__icontains=query) |
+                Q(hora_saida_caminhao__icontains=query) |
+                Q(km_saida_caminhao__icontains=query) |
+                Q(local_chegada_caminhao__icontains=query) |
+                Q(hora_chegada_caminhao__icontains=query) |
+                Q(km_chegada_caminhao__icontains=query) |
+                Q(viagem_caminhao__icontains=query) |
+                Q(media_caminhao__icontains=query) |
+                Q(avaliacao_op_mantenedor_caminhao__icontains=query) |
+                Q(avaliacao_digitacao_bordo_caminhao__icontains=query) |
+                Q(acoes_autorizadas_caminhao__icontains=query) |
+                Q(operacao_caminhao__icontains=query) |
+                Q(avaliacao_caminhao__icontains=query) |
+                Q(observacoes__icontains=query)
+            )
+        if tipo == 'colhedora' or tipo == '':    
+            colhedora_resultados = Colhedora.objects.filter(  
+                Q(matricula_condutor_colhedora__icontains=query) |
+                Q(nome_condutor_colhedora__icontains=query) |
+                Q(equipamento_colhedora__icontains=query) |
+                Q(hora_saida_colhedora__icontains=query) |
+                Q(hora_chegada_colhedora__icontains=query) |
+                Q(horimetro_inicial_colhedora__icontains=query) |
+                Q(horimetro_final_colhedora__icontains=query) |
+                Q(frente_colhedora__icontains=query) |
+                Q(avaliacao_operacao_mantendedor_colhedora__icontains=query) |
+                Q(avaliacao_digitacao_bordo_colhedora__icontains=query) |
+                Q(avaliacao_acoes_autorizadas_colhedora__icontains=query) |
+                Q(avaliacao_operacao_colhedora__icontains=query) |
+                Q(avaliacao_pressao_corte_base_colhedora__icontains=query) |
+                Q(avaliacao_pressao_picador_colhedora__icontains=query) |
+                Q(avaliacao_configuracao_cb_colhedora__icontains=query) |
+                Q(avaliacao_sincronismo_transbordo_colhedora__icontains=query) |
+                Q(avaliacao_velocidade_constante_colhedora__icontains=query) |
+                Q(avaliacao_utilizacao_tecnologia_colhedora__icontains=query) |
+                Q(avaliacao_senso_de_dono_colhedora__icontains=query) |
+                Q(avaliacao_geral_instrutor_colhedora__icontains=query) |
+                Q(observacoes__icontains=query)
+            )
+
+        if tipo == 'trator' or tipo == '':
+            trator_resultato = Trator.objects.filter(
+                Q(data_trator__icontains=query) |
+                Q(hora_trator__icontains=query) |
+                Q(matricula_instrutor_trator__icontains=query) |
+                Q(nome_instrutor_trator__icontains=query) |
+                Q(matricula_condutor_trator__icontains=query) |
+                Q(nome_condutor_trator__icontains=query) |
+                Q(equipamento_trator__icontains=query) |
+                Q(local_saida_trator__icontains=query) |
+                Q(hora_saida_trator__icontains=query) |
+                Q(local_chegada_trator__icontains=query) |
+                Q(hora_chegada_trator__icontains=query) |
+                Q(horimetro_inicial_trator__icontains=query) |
+                Q(horimetro_final_trator__icontains=query) |
+                Q(avaliacao_operador_mantenedor_trator__icontains=query) |
+                Q(avaliacao_digitacao_bordo_trator__icontains=query) |
+                Q(avaliacao_acoes_autorizadas_trator__icontains=query) |
+                Q(avaliacao_operacao_trator__icontains=query) |
+                Q(avaliacao_instrutor_trator__icontains=query) |
+                Q(avaliacao_rotacoes_trator__icontains=query) |
+                Q(avaliacao_senso_dono_trator__icontains=query) |
+                Q(avaliacao_troca_marcha_trator__icontains=query) |
+                Q(avaliacao_troca_embreagem_trator__icontains=query) |
+                Q(avaliacao_velocidade_constante_trator__icontains=query) |
+                Q(avaliacao_sincronismo_colheora_trator__icontains=query) |
+                Q(avaliacao_paralelismo_trator__icontains=query) |
+                Q(observacoes__icontains=query)
+
+            )
+
+        if tipo == 'lider' or tipo == '':
+            lider_resultados = Lider.objects.filter(
+                Q(data_lider__icontains=query) |
+                Q(hora_lider__icontains=query) |
+                Q(matricula_instrutor_lider__icontains=query) |
+                Q(nome_instrutor_lider__icontains=query) |
+                Q(matricula_do_lider__icontains=query) |
+                Q(nome_do_lider__icontains=query) |
+                Q(frente_lider__icontains=query) |
+                Q(fazenda_lider__icontains=query) |
+                Q(unidade_lider__icontains=query) |
+                Q(avaliacao_organizacao_area_trasnbordamento_lider__icontains=query) |
+                Q(avaliacao_abertura_aceiros_lider__icontains=query) |
+                Q(avaliacao_tempo_carregamento_metros_lineares_lider__icontains=query) |
+                Q(avaliacao_qualidade_colheita_lider__icontains=query) |
+                Q(avaliacao_aproveitamento_tempo_colhedora__icontains=query) |
+                Q(avaliacao_lideranca_equipe__icontains=query) |
+                Q(avaliacao_final_instrutor__icontains=query) |    
+                Q(observacoes__icontains=query)
+
+        )
+    context = {
+        'query': query,
+        'tipo': tipo,
+        'caminhao_resultados': caminhao_resultados,
+        'colhedora_resultados': colhedora_resultados,
+        'trator_resultato': trator_resultato,
+        'lider_resultados': lider_resultados,
+
+    }
+
+    return render(request, 'resultado_busca_geral.html', context)
 
 
-
-
+def MeusFuncionario(request):
+    FUNCIONARIO = {
+        "35037": "Venicius",
+        "38028": "Bryan",
+        "39040": "Joselita",
+        "36060": "Uéverson",
+        "10010": "Gleyci",
+        "30148": "Lehh"
+    }
+    return render(request,  'rh_instrução.html', {'funcionario' : FUNCIONARIO })
