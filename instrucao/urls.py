@@ -20,5 +20,8 @@ urlpatterns = [
 
    #Rota De busca
    path('buscar/', views.BuscarGeral, name='buscar_geral'),
+
+   #Rota de preencher automatico
+   path('meus-funcionarios/', views.instrucao, name='meus_funcionarios'),
   
 ]

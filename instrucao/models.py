@@ -2,6 +2,9 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
 
+
+
+
 class Caminhao(models.Model):
     data_caminhao = models.DateField()
     hora_caminhao = models.TimeField()

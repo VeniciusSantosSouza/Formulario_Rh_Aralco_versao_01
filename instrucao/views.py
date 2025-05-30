@@ -115,7 +115,7 @@ def BuscarGeral(request):
     
     caminhao_resultados = []
     colhedora_resultados = []
-    trator_resultato = []
+    trator_resultados = []
     lider_resultados = []
 
     if query:
@@ -169,7 +169,7 @@ def BuscarGeral(request):
             )
 
         if tipo == 'trator' or tipo == '':
-            trator_resultato = Trator.objects.filter(
+            trator_resultados = Trator.objects.filter(
                 Q(data_trator__icontains=query) |
                 Q(hora_trator__icontains=query) |
                 Q(matricula_instrutor_trator__icontains=query) |
@@ -225,7 +225,7 @@ def BuscarGeral(request):
         'tipo': tipo,
         'caminhao_resultados': caminhao_resultados,
         'colhedora_resultados': colhedora_resultados,
-        'trator_resultato': trator_resultato,
+        'trator_resultados': trator_resultados,
         'lider_resultados': lider_resultados,
 
     }
@@ -233,13 +233,24 @@ def BuscarGeral(request):
     return render(request, 'resultado_busca_geral.html', context)
 
 
-def MeusFuncionario(request):
+def instrucao(request):
     FUNCIONARIO = {
         "35037": "Venicius",
         "38028": "Bryan",
         "39040": "Joselita",
         "36060": "Uéverson",
         "10010": "Gleyci",
-        "30148": "Lehh"
+        "30148": "Lehh",
+        
     }
-    return render(request,  'rh_instrução.html', {'funcionario' : FUNCIONARIO })
+
+    INSTRUTOR = {
+        "10011": "Robinho",
+        "20011": "Tiago",
+        "30011": "PBenjamin Franklin",
+    }
+
+    return render(request, 'instrucao/rh_instrucao.html', {
+        'funcionario': FUNCIONARIO,
+        'instrutor': INSTRUTOR,
+        })  

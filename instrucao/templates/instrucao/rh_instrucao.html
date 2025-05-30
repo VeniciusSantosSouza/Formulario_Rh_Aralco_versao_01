@@ -916,64 +916,138 @@
     </div>
   </div>
 </form>
-
-
+  
+<!--Funcionario-->
+{{ funcionario|json_script:"funcionariosData" }}
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const dadosFuncionarios = document.getElementById('dados-funcionarios');
-    if (!dadosFuncionarios) {
-      console.error('Elemento com dados dos funcionários não encontrado');
-      return;
-    }
+  document.addEventListener("DOMContentLoaded", function () {
+    const funcionarios = JSON.parse(
+      document.getElementById("funcionariosData").textContent
+    );
 
-    try {
-      const funcionarios = JSON.parse(dadosFuncionarios.textContent);
+    const inputMatricula = document.getElementById("imatricula_condutor_caminhao");
+    const inputNome = document.getElementById("inome_condutor_caminhao");
 
-      function preencherNome(campoMatricula, campoNome) {
-        const matricula = campoMatricula.value.trim();
-        campoNome.value = funcionarios[matricula] || '';
-      }
+    inputMatricula.addEventListener("input", function () {
+      const matricula = inputMatricula.value.trim();
+      const nome = funcionarios[matricula];
+      inputNome.value = nome || "";
+    });
+  });
 
-      // Caminhão
-      const campoMatriculaCaminhao = document.getElementById('imatricula_instrutor_caminhao');
-      const campoNomeCaminhao = document.getElementById('inome_instrutor_caminhao');
-      if (campoMatriculaCaminhao && campoNomeCaminhao) {
-        campoMatriculaCaminhao.addEventListener('input', () => {
-          preencherNome(campoMatriculaCaminhao, campoNomeCaminhao);
-        });
-      }
+  document.addEventListener("DOMContentLoaded", function () {
+    const funcionarios = JSON.parse(
+      document.getElementById("funcionariosData").textContent
+    );
 
-      // Colhedora
-      const campoMatriculaColhedora = document.getElementById('imatricula_instrutor_colhedora');
-      const campoNomeColhedora = document.getElementById('inome_instrutor_colhedora');
-      if (campoMatriculaColhedora && campoNomeColhedora) {
-        campoMatriculaColhedora.addEventListener('input', () => {
-          preencherNome(campoMatriculaColhedora, campoNomeColhedora);
-        });
-      }
+    const inputMatricula = document.getElementById("imatricula_condutor_colhedora");
+    const inputNome = document.getElementById("inome_condutor_colhedora");
 
-      // Trator
-      const campoMatriculaTrator = document.getElementById('imatricula_instrutor_trator');
-      const campoNomeTrator = document.getElementById('inome_instrutor_trator');
-      if (campoMatriculaTrator && campoNomeTrator) {
-        campoMatriculaTrator.addEventListener('input', () => {
-          preencherNome(campoMatriculaTrator, campoNomeTrator);
-        });
-      }
+    inputMatricula.addEventListener("input", function () {
+      const matricula = inputMatricula.value.trim();
+      const nome = funcionarios[matricula];
+      inputNome.value = nome || "";
+    });
+  });
 
-      // Líder
-      const campoMatriculaLider = document.getElementById('imatricula_instrutor_lider');
-      const campoNomeLider = document.getElementById('inome_instrutor_lider');
-      if (campoMatriculaLider && campoNomeLider) {
-        campoMatriculaLider.addEventListener('input', () => {
-          preencherNome(campoMatriculaLider, campoNomeLider);
-        });
-      }
-    } catch (error) {
-      console.error('Erro ao processar dados dos funcionários:', error);
-    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const funcionarios = JSON.parse(
+      document.getElementById("funcionariosData").textContent
+    );
+
+    const inputMatricula = document.getElementById("imatricula_condutor_trator");
+    const inputNome = document.getElementById("inome_condutor_trator");
+
+    inputMatricula.addEventListener("input", function () {
+      const matricula = inputMatricula.value.trim();
+      const nome = funcionarios[matricula];
+      inputNome.value = nome || "";
+    });
+  });
+
+      document.addEventListener("DOMContentLoaded", function () {
+    const funcionarios = JSON.parse(
+      document.getElementById("funcionariosData").textContent
+    );
+
+    const inputMatricula = document.getElementById("imatricula_do_lider");
+    const inputNome = document.getElementById("inome_do_lider");
+
+    inputMatricula.addEventListener("input", function () {
+      const matricula = inputMatricula.value.trim();
+      const nome = funcionarios[matricula];
+      inputNome.value = nome || "";
+    });
+  }); 
+  
+</script>
+
+
+<!--Instrutor-->
+{{ instrutor|json_script:"instrutoresData" }}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const instrutores = JSON.parse(
+      document.getElementById("instrutoresData").textContent
+    );
+
+    const inputMatricula = document.getElementById("imatricula_instrutor_caminhao");
+    const inputNome = document.getElementById("inome_instrutor_caminhao");
+
+    inputMatricula.addEventListener("input", function () {
+      const matricula = inputMatricula.value.trim();
+      const nome = instrutores[matricula];
+      inputNome.value = nome || "";
+    });
+  });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const instrutores = JSON.parse(
+      document.getElementById("instrutoresData").textContent
+    );
+
+    const inputMatricula = document.getElementById("imatricula_instrutor_colhedora");
+    const inputNome = document.getElementById("inome_instrutor_colhedora");
+
+    inputMatricula.addEventListener("input", function () {
+      const matricula = inputMatricula.value.trim();
+      const nome = instrutores[matricula];
+      inputNome.value = nome || "";
+    });
+  });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const instrutores = JSON.parse(
+      document.getElementById("instrutoresData").textContent
+    );
+
+    const inputMatricula = document.getElementById("imatricula_instrutor_trator");
+    const inputNome = document.getElementById("inome_instrutor_trator");
+
+    inputMatricula.addEventListener("input", function () {
+      const matricula = inputMatricula.value.trim();
+      const nome = instrutores[matricula];
+      inputNome.value = nome || "";
+    });
+  });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const instrutores = JSON.parse(
+      document.getElementById("instrutoresData").textContent
+    );
+
+    const inputMatricula = document.getElementById("imatricula_instrutor_lider");
+    const inputNome = document.getElementById("inome_instrutor_lider");
+
+    inputMatricula.addEventListener("input", function () {
+      const matricula = inputMatricula.value.trim();
+      const nome = instrutores[matricula];
+      inputNome.value = nome || "";
+    });
   });
 </script>
+
 
 <script>
     const tabs = document.querySelectorAll('.tab');

@@ -55,7 +55,7 @@ ROOT_URLCONF = 'webrh.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # caso tenha uma pasta templates no projeto
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

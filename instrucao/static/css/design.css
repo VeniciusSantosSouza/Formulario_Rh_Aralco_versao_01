@@ -6,20 +6,19 @@
  }
  
  body{
-  background-color: black;
+    background-color: black;
     color: white;
     margin: 0;
     padding: 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
     font-size: 20px;
   }
   
       /*divisoria campos*/
       .tab{
        display: none;
-       border: none;
-       box-sizing: border-box;
       }
 
        .tab.active {
@@ -27,20 +26,33 @@
       }
 
       .tabs{
-        width: 50%;
-        font-size: 15px;
         display: flex;
-        ;
+        gap: 0.5rem;            
+        padding: 0.5rem;       
+        border-radius: 0.5rem; 
       }
 
-      fieldset {
-      border: 2px solid white;
-      border-radius: 10px;
-      padding: 20px;
-      width: 100%;
-      max-width: 900px; 
-      background-color: #111;
-      }
+      .tabs button {
+        flex: 1;                    
+        border: 2px solid #ddd;      
+        border-radius: 0.5rem;       
+        padding: 0.75rem 1rem;      
+        font-size: 1rem; 
+        cursor: pointer;
+        transition: 
+        background 0.2s ease, 
+        border-color 0.2s ease, 
+        transform 0.1s ease;
+        }
+
+        fieldset {
+         border: 2px solid white;
+         border-radius: 10px;
+         padding: 20px;
+         width: 100%;
+         max-width: 900px; 
+         background-color: #111;
+        }
 
       .campos_preenchimento {
        display: grid;
@@ -48,25 +60,71 @@
        gap: 15px;
     }
 
-    .campos_preenchimento label {
-    display: flex;
-    margin-bottom: 5px;
-    }
+      .campos_preenchimento label {
+        display: flex;
+        margin-bottom: 5px;
+        }
 
-    .campos_preenchimento input {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #ffffff;
-    margin-bottom: 20px;
-    }
+      .campos_preenchimento input {
+       padding: 5px;
+       border: 1px solid #ccc;
+       border-radius: 5px;
+       background-color: #ffffff;
+       margin-bottom: 20px;
+      }
 
-    .pos_avl{
-      height: 60px;
+      .pos_avl{
+       height: 60px;
+       margin-bottom: 10px;
+      }
+
+     .alinhamento_avl{
       margin-bottom: 10px;
+     }
 
-    }
+     .multiselect {
+            width: 200px;
+        }
+        .selectBox {
+            position: relative;
+        }
+        .selectBox select {
+            width: 100%;
+            font-weight: bold;
+        }
+        .overSelect {
+            position: absolute;
+            left: 0; right: 0; top: 0; bottom: 0;
+        }
+        #checkboxes {
+            display: none;
+            border: 1px #dadada solid;
+            max-height: 200px;
+            overflow-y: auto;
+            background: rgb(0, 0, 0);
+            z-index: 1000;
+            position: absolute;
+            width: 40%;
+        }
+        #checkboxes label {
+            display: block;
+            padding: 5px;
+            cursor: pointer;
+        }
+        #checkboxes label:hover {
+            color: white;
+        }
+        input[type="text"] {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+        }
 
+        .filtros { margin-bottom: 20px; }
+    .campo { display: none; margin-top: 5px; }
+    label { margin-right: 10px; }
+
+     
       /*divisoria campos*/
       
       .titulo{
@@ -74,11 +132,42 @@
        color: rgb(255, 255, 255);
        font-size: 20px;
       }
+      
+      /*responsividade aparelhos móveis*/
+      @media (max-width: 700px){
+        body{
+          padding: 10px;
+          font-size: 15px;
+        }
 
-      /*imagens*/
-      .img_logo{
-        float: right;
-        display: block;
-        top: 10px;
-        right: 20px;
+        .tabs{
+          flex-direction: column;
+        }
+
+        .tabs button{
+          width: 100%;
+          font-size: 1rem;
+        }
+
+        fieldset{
+          padding: 15px;
+        }
+
+        .titulo{
+          font-size: 18px;
+          justify-content: center;
+          align-items: center;
+
+        }
+
+        .pos_avl{
+      height: 60px;
+      margin-bottom: 10px;
+     }
+
+     .alinhamento_avl{
+      margin-bottom: 10px;
+      height: 20px;
+     }
+     
       }

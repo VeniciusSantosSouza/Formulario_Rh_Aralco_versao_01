@@ -7,5 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('instrucao/', include(('instrucao.urls', 'instrucao'), namespace='instrucao')),
     path('', lambda request: redirect('instrucao/', permanent=False)),
+
     
 ]
+    
