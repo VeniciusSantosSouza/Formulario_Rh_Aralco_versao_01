@@ -3,6 +3,17 @@ from .models import Caminhao
 from .models import Trator
 from .models import Colhedora
 from .models import Lider
+from .models import Funcionario
+
+class FuncionarioForm(forms.ModelForm):
+    class Meta:
+        model = Funcionario
+        fields = '__all__'
+        widgets = {
+            'matricula_funcionario': forms.NumberInput(),
+            'nome_funcionario': forms.TextInput(),
+        }
+
 
 
 

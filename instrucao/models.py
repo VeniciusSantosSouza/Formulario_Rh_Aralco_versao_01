@@ -3,9 +3,19 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
 
 
+class Funcionario(models.Model):
+    matricula_fincionario = models.IntegerField()
+    nome_funcionario = models.CharField(max_length = 255)
+
+
+class Instrutores(models.Model):
+    matricula_instrutor = models.IntegerField   ()
+    nome_instrutor = models.CharField(max_length = 255)
+
 
 
 class Caminhao(models.Model):
+    id_caminhao = models.AutoField(primary_key=True)
     data_caminhao = models.DateField()
     hora_caminhao = models.TimeField()
     matricula_instrutor_caminhao = models.IntegerField() 
@@ -50,6 +60,7 @@ class Caminhao(models.Model):
 
 
 class Colhedora(models.Model):
+    id_colhedora = models.AutoField(primary_key=True)
     data_colhedora = models.DateField()
     hora_colhedora = models.TimeField()
     matricula_instrutor_colhedora = models.IntegerField()
@@ -96,6 +107,7 @@ class Colhedora(models.Model):
 
 
 class Trator(models.Model):
+    id_trator = models.AutoField(primary_key=True)
     data_trator = models.DateField()
     hora_trator = models.TimeField()
     matricula_instrutor_trator = models.IntegerField()
@@ -144,6 +156,7 @@ class Trator(models.Model):
 
 
 class Lider(models.Model):
+    id_lider = models.AutoField(primary_key=True)
     data_lider = models.DateField()
     hora_lider = models.TimeField()
     matricula_instrutor_lider = models.IntegerField()

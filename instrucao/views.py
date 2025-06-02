@@ -1,5 +1,8 @@
 import os
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 from django.http import HttpResponse
 from django.template import loader
 from .forms import CaminhaoForm
@@ -19,18 +22,11 @@ def sucesso(request):
     return render(request, 'instrucao/sucesso.html')
 
 
-def instrucao(request):
-    return render(request, 'instrucao/rh_instrucao.html')
+#def instrucao(request):
+    #return render(request, 'instrucao/rh_instrucao.html')
 
 #def teste(request):
    # return render(request, 'instrucao/teste.html')
-
-def design(request):
-   return render(request, 'static/css/design.css')
-
-   #from django.shortcuts import render
-
-
 
 # Criei uma (função) para recerber os dados do html
 def caminhaoFormsdados(request):
@@ -87,7 +83,6 @@ def colhedoraFormsdados(request):
         form = ColhedoraForm()
         return render(request, 'instrucao/rh_instrucao.html', {'form' : form})
 
-#Aqui esta rodando
 
 def LiderFormdados(request):
     if request.method == 'POST':
@@ -96,7 +91,6 @@ def LiderFormdados(request):
         if form.is_valid():
             dados = form.cleaned_data
             form.save()
-            #return redirect('resultlider')
             return render(request, 'instrucao/sucesso.html')
         else:
             print("Formulario inválido, NÃO salvou nada.")
@@ -108,7 +102,7 @@ def LiderFormdados(request):
         return render(request, 'instrucao/rh_instrucao.html',{'form' : form})
 
 
-
+#
 def BuscarGeral(request):
     query = request.GET.get('buscar', '')
     tipo = request.GET.get('tipo', '')
@@ -254,3 +248,94 @@ def instrucao(request):
         'funcionario': FUNCIONARIO,
         'instrutor': INSTRUTOR,
         })  
+
+
+
+@staff_member_required
+def editar_caminhao(request, id):
+    caminhao = get_object_or_404(Caminhao, id_caminhao=id) 
+    if request.method == 'POST':
+        form = CaminhaoForm(request.POST, instance=caminhao)
+        if form.is_valid():
+            form.save()
+            return render(request, 'instrucao/sucesso.html')
+
+        else:
+            print("Formulário inválido, NÃO salvou nada.")
+            print(form.errors)
+            
+            return render(request, 'instrucao/erro.html')
+    else:
+        form = CaminhaoForm(instance=caminhao)
+
+    return render(request, 'instrucao/editar_formulario.html', {'form': form})
+
+
+
+@staff_member_required
+def editar_colhedora(request, id):
+    colhedora = get_object_or_404(Colhedora, id_colhedora=id)
+    if request.method == 'POST':
+        form = ColhedoraForm(request.POST, instance=colhedora)
+        if form.is_valid():
+            form.save()
+            return render(request, 'instrucao/sucesso.html')
+
+        else:
+            print("Formulário inválido, NÃO salvou nada.")
+            print(form.errors)
+
+            return render(request, 'instrucao/erro.html')
+        
+    else:
+        form = ColhedoraForm(instance=colhedora)
+    return render(request, 'instrucao/editar_formulario.html', {'form': form})
+
+
+
+@staff_member_required
+def editar_trator(request, id):
+    trator = get_object_or_404(Trator, id_trator=id)
+    if request.method == 'POST':
+        form = TratorForm(request.POST, instance=trator)
+        if form.is_valid():
+            form.save()
+            return render(request,'instrucao/sucesso.html')
+        
+        else:
+            return render (request, 'instrucao/erro.html')
+
+    else:
+        form = TratorForm(instance=trator)
+    return render(request, 'instrucao/editar_formulario.html', {'form': form})
+
+
+
+@staff_member_required
+def editar_lider(request, id):
+    lider = get_object_or_404(Lider, id_lider=id)
+    if request.method == 'POST':
+        form = LiderForm(request.POST, instance=lider)
+        if form.is_valid():
+            form.save()
+            return render(request, 'instrucao/sucesso.html')
+        else:
+            return render (request, 'instrucao/erro.html')
+    else:
+        form = LiderForm(instance=lider)
+    return render(request, 'instrucao/editar_formulario.html', {'form': form})
+
+
+def login_usuario(request):
+    if request.method == 'POST':
+        form = authenticationForm(request, data=request.POST)
+        if form.is_valid():
+            usuario = form.get_user()
+            login(request, usuario)
+            return redirect('instrucao:pagina_principal')  # certifique-se que está certo seu namespace e nome da url
+        else:
+            messages.error(request, 'Usuário ou senha inválidos.')
+    else:
+        form = authenticationForm()
+
+    return render(request, 'registration/login.html', {'form': form})

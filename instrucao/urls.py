@@ -1,10 +1,14 @@
 from django.urls import path
 from . import views
+from .views import login_usuario
+
+
+app_name = 'instrucao'
+
 
 urlpatterns = [
    #path('rh_instrucao/', views.rh_instrucao, name="rh_instrucao"),
    # path('teste/', views.teste, name="teste"),
-   path('design', views.design, name="design"),
    path('', views.instrucao, name="pagina_principal"),
    path('instrucao/buscar', views.instrucao, name="instrucao"),
 
@@ -23,5 +27,14 @@ urlpatterns = [
 
    #Rota de preencher automatico
    path('meus-funcionarios/', views.instrucao, name='meus_funcionarios'),
-  
+
+
+   #Rota de edição
+   path('editar/caminhao/<int:id>/', views.editar_caminhao, name='editar_caminhao'),
+   path('editar/colhedora/<int:id>',views.editar_colhedora, name='editar_colhedora'),
+   path('editar/trator/<int:id>/', views.editar_trator, name='editar_trator'),
+   path('editar/lider/<int:id>/', views.editar_lider, name='editar_lider'),  
+
+   #Rota de Login
+   path('login/', login_usuario, name='login'),
 ]
