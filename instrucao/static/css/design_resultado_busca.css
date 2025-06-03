@@ -1,0 +1,23 @@
+        body { font-family: Arial, sans-serif; margin: 40px;
+        background-color:rgb(0, 0, 0);  }
+
+        h2 { color:rgb(255, 255, 255); }
+        p { margin: 5px 0; }
+        .sem-resultado { color: #999; }
+        thead,tbody{
+            color:rgb(255, 255, 255); }
+
+        .botao-editar {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: #007bff; /* azul */
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            }
+
+        .botao-editar:hover {
+            background-color: #0056b3; /* azul mais escuro no hover */
+            }

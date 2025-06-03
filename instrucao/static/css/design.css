@@ -16,7 +16,7 @@
     font-size: 20px;
   }
   
-      /*divisoria campos*/
+      /*tabs de formulario e afins*/
       .tab{
        display: none;
       }
@@ -44,7 +44,23 @@
         border-color 0.2s ease, 
         transform 0.1s ease;
         }
+        
+        .botao_sair{
+          text-align: right;
+          margin: 20px;
+        }
 
+        .botao_sair 
+
+  
+    
+
+    .botao-editar:hover {
+        background-color:rgb(21, 7, 112);
+    }
+
+        
+        /*divisoria campos*/
         fieldset {
          border: 2px solid white;
          border-radius: 10px;
@@ -73,6 +89,12 @@
        margin-bottom: 20px;
       }
 
+      .campos_preenchimento select{
+        height: 30px;
+        width: 40%;
+        font-size: 15px;
+      }
+
       .pos_avl{
        height: 60px;
        margin-bottom: 10px;
@@ -81,49 +103,6 @@
      .alinhamento_avl{
       margin-bottom: 10px;
      }
-
-     .multiselect {
-            width: 200px;
-        }
-        .selectBox {
-            position: relative;
-        }
-        .selectBox select {
-            width: 100%;
-            font-weight: bold;
-        }
-        .overSelect {
-            position: absolute;
-            left: 0; right: 0; top: 0; bottom: 0;
-        }
-        #checkboxes {
-            display: none;
-            border: 1px #dadada solid;
-            max-height: 200px;
-            overflow-y: auto;
-            background: rgb(0, 0, 0);
-            z-index: 1000;
-            position: absolute;
-            width: 40%;
-        }
-        #checkboxes label {
-            display: block;
-            padding: 5px;
-            cursor: pointer;
-        }
-        #checkboxes label:hover {
-            color: white;
-        }
-        input[type="text"] {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 5px;
-        }
-
-        .filtros { margin-bottom: 20px; }
-    .campo { display: none; margin-top: 5px; }
-    label { margin-right: 10px; }
-
      
       /*divisoria campos*/
       
@@ -140,7 +119,7 @@
           font-size: 15px;
         }
 
-        .tabs{
+        .tabs, .tab{
           flex-direction: column;
         }
 
@@ -169,5 +148,6 @@
       margin-bottom: 10px;
       height: 20px;
      }
+
      
       }

@@ -4,32 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/design_resultado_busca.css' %}" rel="stylesheet">
     <title>Resultados da Busca</title>
     
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px;
-        background-color:rgb(0, 0, 0);  }
-
-        h2 { color:rgb(255, 255, 255); }
-        p { margin: 5px 0; }
-        .sem-resultado { color: #999; }
-        thead,tbody{
-            color:rgb(255, 255, 255); }
-
-        .botao-editar {
-            display: inline-block;
-            padding: 6px 12px;
-            background-color: #007bff; /* azul */
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-            }
-
-        .botao-editar:hover {
-            background-color: #0056b3; /* azul mais escuro no hover */
-            }
 
     </style>
 </head>
@@ -43,6 +21,8 @@
 
     {% if caminhao_resultados %}
     <h2>Caminhão</h2>
+    
+    {% for item in caminhao_resultados %}
 
     <table border="5" cellpadding="5" cellspacing="0">
             <thead>
@@ -62,10 +42,12 @@
                     <th>Km de chegada</th>
                     <th>Viagem</th>
                     <th>Média</th>
+                    <th>Ações</th>
+
                 </tr>
             </thead>
             <tbody>
-                {% for item in caminhao_resultados %}
+                
                     <tr>
                         <td>{{ item.data_caminhao }}</td>
                         <td>{{ item.hora_caminhao }}</td>
@@ -112,6 +94,8 @@
                     <th>Horímetro inicial</th>
                     <th>Horímetro final</th>
                     <th>Frente</th>
+                    <th>Ações</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -161,6 +145,8 @@
                     <th>Hora de chegada</th>
                     <th>Horímetro inicial</th>
                     <th>Horímetro final</th>
+                    <th>Ações</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -206,6 +192,8 @@
                     <th>Frente</th>
                     <th>Fazenda</th>
                     <th>Unidade</th>
+                    <th>Ações</th>
+
                 </tr>
             </thead>
             <tbody>

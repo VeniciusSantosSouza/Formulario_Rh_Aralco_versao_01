@@ -36,5 +36,7 @@ urlpatterns = [
    path('editar/lider/<int:id>/', views.editar_lider, name='editar_lider'),  
 
    #Rota de Login
-   path('login/', login_usuario, name='login'),
+   path('login_usuario', views.login_usuario, name='login_usuario'),
+   path('logout/', views.logout_usuario, name='logout_usuario'),
+   
 ]

@@ -3,20 +3,21 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Formulario</title>
-  <link href="{% static 'css/design.css' %}" rel="stylesheet">
-
-   <!--<link rel="stylesheet" href="design.css">-->
-
+    <link href="{% static 'css/design.css' %}" rel="stylesheet">
+    
     <style>
   </style>
 </head>
-
 <body>
-  {{ funcionarios|json_script:"dados-funcionarios" }}
+{{ funcionarios|json_script:"dados-funcionarios" }}
 
-
+<form class="botao_sair" method="post" action="{% url 'instrucao:logout_usuario' %}">
+     {% csrf_token %}
+     <button type="submit">Encerrar sessão</button>
+    </form>
+    
   <div class="cont_principal">
 
     <div class= "img_logo">
@@ -43,10 +44,10 @@
     <fieldset>
       <div class= "campos_preenchimento">
       <label for="idata_caminhao"> Data:</label>
-      <input type="date" name="data_caminhao" id="idata_caminhao" required>
+      <input type="date" name="data_caminhao" id="idata_caminhao">
 
       <label for="ihora_caminhao"> Hora:</label>
-      <input type="time" name="hora_caminhao" id="ihora_caminhao" required>
+      <input type="time" name="hora_caminhao" id="ihora_caminhao">
       
       <label for="imatricula_instrutor_caminhao"> Matrícula do instrutor:</label> 
       <input type= "number" name = "matricula_instrutor_caminhao" id= "imatricula_instrutor_caminhao"/>
@@ -170,7 +171,7 @@
     <form method="POST" action="{% url 'instrucao:coletar_dados_colhedora_forms' %}">
         {% csrf_token%}
     <div class="tab">
-      <h2>Dados da instrução: Colhedora</h2>
+      <h2>Dados de instrução: Colhedora</h2>
     <fieldset>
        <div class= "campos_preenchimento">
       <label for="idata_colhedora"> Data:</label>
@@ -465,8 +466,8 @@
       <label for="inome_condutor_trator"> Nome do condutor: </label>
       <input type= "text" name = "nome_condutor_trator" id= "inome_condutor_trator"/>
        
-      <label for="id_equipamento_trator">Equipamento:</label>
-      <input type="number" name="equipamento_trator" id="id_equipamento_trator" required>
+      <label for="iequipamento_trator"> Equipamento: </label>
+      <input type = "number" name = "equipamento_trator" id= "iequipamento_trator"/>
       
       <label for="ilocal_saida_trator"> Local de saída: </label>
       <input type= "text" name = "local_saida_trator" id= "ilocal_saida_trator"/>
@@ -718,14 +719,14 @@
     <form method="POST" action="{% url 'instrucao:coletar_dados_lider_forms' %}">
         {% csrf_token %}
       <div class="tab">
-      <h2>Dados da instrução: Ranking Líder</h2>
+      <h2>Dados de instrução: Ranking Líder</h2>
       <fieldset>
         <div class= "campos_preenchimento">
       <label for="idata_lider"> Data:</label>
       <input type="date" name="data_lider" id="idata_lider">
 
       <label for"ihora_lider"> Hora:</label>
-      <input type="time" name="hora_lider" id="idata_lider">
+      <input type="time" name="hora_lider" id="ihora_lider">
 
       <label for="imatricula_instrutor_lider"> Matrícula do instrutor: </label>
       <input type= "number" name = "matricula_instrutor_lider" id= "imatricula_instrutor_lider"/>
@@ -746,7 +747,7 @@
       <input type= "text" name = "fazenda_lider" id= "ifazenda_lider"/>
 
       <label for="iunidade_lider"> Unidade: </label>
-      <input type= "number" name = "unidade_lider" id= "iunidade_lider"/>
+      <input type= "text" name = "unidade_lider" id= "iunidade_lider"/>
       </div>
 
         <div class= "pos_avl">
@@ -804,7 +805,7 @@
         </div>
       
         <div class= "pos_avl">
-         <legend class="alinhamento_avls">Qualidade de colheita - Vegetal - Mineral - Altura do corte:</legend>
+         <legend class="alinhamento_avl">Qualidade de colheita - Vegetal - Mineral - Altura do corte:</legend>
          <input type="radio" id="estrela16_lider" name="avaliacao_qualidade_colheita_lider" value="1">
          <label for="estrela16_lider">★</label>
         
@@ -884,169 +885,34 @@
        <input type="button" value="Limpar" style="width: 100px; height: 30px; font-size: 15px;">
       </p>
     </div>
-  </form> 
-
+  </form>
+  
+   <!-- Aba histórico de instrução -->
   <form action="{% url 'instrucao:buscar_geral' %}" method="GET">
   <div class="tab">
-    <h2>Dados da instrução: Histórico</h2>
+    <h2>Dados da instrução: Histórico de instruções</h2>
+    
+    <fieldset>
     <div class="campos_preenchimento">
       <input type="search" name="buscar" placeholder="Pesquisar..." 
-             value="{{ query }}" 
-             style="width: 500px; height: 30px; font-size: 15px;">
-      <select name="tipo" style="height: 30px; font-size: 15px;">
+             value="{{ query }}">
+      <select name="tipo">
         <option value="" {% if not tipo %}selected{% endif %}>Todos</option>
         <option value="caminhao" {% if tipo == 'caminhao' %}selected{% endif %}>Caminhão</option>
         <option value="colhedora" {% if tipo == 'colhedora' %}selected{% endif %}>Colhedora</option>
         <option value="trator" {% if tipo == 'trator' %}selected{% endif %}>Trator</option>
         <option value="lider" {% if tipo == 'lider' %}selected{% endif %}>Líder</option>
       </select>
-      <input type="submit" value="Busca" style="width: 100px; height: 30px; font-size: 15px;">
-    </div>
-  </div>
-</form>
 
-  <!-- Aba histórico de instrução -->
-<form action="{% url 'instrucao:buscar_geral' %}" method="GET">
-  <div class="tab">
-    <h2>Dados da instrução: Histórico</h2>
-    <div class="campos_preenchimento">
       
-      <input type="search" name="buscar" placeholder="Pesquisar..." style="width: 500px; height: 30px; font-size: 15px;">
+
+
       <input type="submit" value="Busca" style="width: 100px; height: 30px; font-size: 15px;">
+    </fieldset>
     </div>
   </div>
+
 </form>
-  
-<!--Funcionario-->
-{{ funcionario|json_script:"funcionariosData" }}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const funcionarios = JSON.parse(
-      document.getElementById("funcionariosData").textContent
-    );
-
-    const inputMatricula = document.getElementById("imatricula_condutor_caminhao");
-    const inputNome = document.getElementById("inome_condutor_caminhao");
-
-    inputMatricula.addEventListener("input", function () {
-      const matricula = inputMatricula.value.trim();
-      const nome = funcionarios[matricula];
-      inputNome.value = nome || "";
-    });
-  });
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const funcionarios = JSON.parse(
-      document.getElementById("funcionariosData").textContent
-    );
-
-    const inputMatricula = document.getElementById("imatricula_condutor_colhedora");
-    const inputNome = document.getElementById("inome_condutor_colhedora");
-
-    inputMatricula.addEventListener("input", function () {
-      const matricula = inputMatricula.value.trim();
-      const nome = funcionarios[matricula];
-      inputNome.value = nome || "";
-    });
-  });
-
-
-    document.addEventListener("DOMContentLoaded", function () {
-    const funcionarios = JSON.parse(
-      document.getElementById("funcionariosData").textContent
-    );
-
-    const inputMatricula = document.getElementById("imatricula_condutor_trator");
-    const inputNome = document.getElementById("inome_condutor_trator");
-
-    inputMatricula.addEventListener("input", function () {
-      const matricula = inputMatricula.value.trim();
-      const nome = funcionarios[matricula];
-      inputNome.value = nome || "";
-    });
-  });
-
-      document.addEventListener("DOMContentLoaded", function () {
-    const funcionarios = JSON.parse(
-      document.getElementById("funcionariosData").textContent
-    );
-
-    const inputMatricula = document.getElementById("imatricula_do_lider");
-    const inputNome = document.getElementById("inome_do_lider");
-
-    inputMatricula.addEventListener("input", function () {
-      const matricula = inputMatricula.value.trim();
-      const nome = funcionarios[matricula];
-      inputNome.value = nome || "";
-    });
-  }); 
-  
-</script>
-
-
-<!--Instrutor-->
-{{ instrutor|json_script:"instrutoresData" }}
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const instrutores = JSON.parse(
-      document.getElementById("instrutoresData").textContent
-    );
-
-    const inputMatricula = document.getElementById("imatricula_instrutor_caminhao");
-    const inputNome = document.getElementById("inome_instrutor_caminhao");
-
-    inputMatricula.addEventListener("input", function () {
-      const matricula = inputMatricula.value.trim();
-      const nome = instrutores[matricula];
-      inputNome.value = nome || "";
-    });
-  });
-
-    document.addEventListener("DOMContentLoaded", function () {
-    const instrutores = JSON.parse(
-      document.getElementById("instrutoresData").textContent
-    );
-
-    const inputMatricula = document.getElementById("imatricula_instrutor_colhedora");
-    const inputNome = document.getElementById("inome_instrutor_colhedora");
-
-    inputMatricula.addEventListener("input", function () {
-      const matricula = inputMatricula.value.trim();
-      const nome = instrutores[matricula];
-      inputNome.value = nome || "";
-    });
-  });
-
-    document.addEventListener("DOMContentLoaded", function () {
-    const instrutores = JSON.parse(
-      document.getElementById("instrutoresData").textContent
-    );
-
-    const inputMatricula = document.getElementById("imatricula_instrutor_trator");
-    const inputNome = document.getElementById("inome_instrutor_trator");
-
-    inputMatricula.addEventListener("input", function () {
-      const matricula = inputMatricula.value.trim();
-      const nome = instrutores[matricula];
-      inputNome.value = nome || "";
-    });
-  });
-
-    document.addEventListener("DOMContentLoaded", function () {
-    const instrutores = JSON.parse(
-      document.getElementById("instrutoresData").textContent
-    );
-
-    const inputMatricula = document.getElementById("imatricula_instrutor_lider");
-    const inputNome = document.getElementById("inome_instrutor_lider");
-
-    inputMatricula.addEventListener("input", function () {
-      const matricula = inputMatricula.value.trim();
-      const nome = instrutores[matricula];
-      inputNome.value = nome || "";
-    });
-  });
-</script>
 
 
 <script>
@@ -1059,6 +925,63 @@
   </script>
 
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const dadosFuncionarios = document.getElementById('dados-funcionarios');
+    if (!dadosFuncionarios) {
+      console.error('Elemento com dados dos funcionários não encontrado');
+      return;
+    }
 
+    try {
+      const funcionarios = JSON.parse(dadosFuncionarios.textContent);
+
+      function preencherNome(campoMatricula, campoNome) {
+        const matricula = campoMatricula.value.trim();
+        campoNome.value = funcionarios[matricula] || '';
+      }
+
+      // Caminhão
+      const campoMatriculaCaminhao = document.getElementById('imatricula_instrutor_caminhao');
+      const campoNomeCaminhao = document.getElementById('inome_instrutor_caminhao');
+      if (campoMatriculaCaminhao && campoNomeCaminhao) {
+        campoMatriculaCaminhao.addEventListener('input', () => {
+          preencherNome(campoMatriculaCaminhao, campoNomeCaminhao);
+        });
+      }
+
+      // Colhedora
+      const campoMatriculaColhedora = document.getElementById('imatricula_instrutor_colhedora');
+      const campoNomeColhedora = document.getElementById('inome_instrutor_colhedora');
+      if (campoMatriculaColhedora && campoNomeColhedora) {
+        campoMatriculaColhedora.addEventListener('input', () => {
+          preencherNome(campoMatriculaColhedora, campoNomeColhedora);
+        });
+      }
+
+      // Trator
+      const campoMatriculaTrator = document.getElementById('imatricula_instrutor_trator');
+      const campoNomeTrator = document.getElementById('inome_instrutor_trator');
+      if (campoMatriculaTrator && campoNomeTrator) {
+        campoMatriculaTrator.addEventListener('input', () => {
+          preencherNome(campoMatriculaTrator, campoNomeTrator);
+        });
+      }
+
+      // Líder
+      const campoMatriculaLider = document.getElementById('imatricula_instrutor_lider');
+      const campoNomeLider = document.getElementById('inome_instrutor_lider');
+      if (campoMatriculaLider && campoNomeLider) {
+        campoMatriculaLider.addEventListener('input', () => {
+          preencherNome(campoMatriculaLider, campoNomeLider);
+        });
+      }
+    } catch (error) {
+      console.error('Erro ao processar dados dos funcionários:', error);
+    }
+  });
+</script>
+
+ 
 </body>
 </html>

@@ -1,7 +1,9 @@
 import os
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.http import HttpResponse
 from django.template import loader
@@ -15,13 +17,15 @@ from .models import Colhedora
 from .models import Lider
 from django.db.models import Q
 
+@login_required
 def erro(request):
     return render(request, 'instrucao/erro.html')
 
+@login_required
 def sucesso(request):
     return render(request, 'instrucao/sucesso.html')
 
-
+#@login_required
 #def instrucao(request):
     #return render(request, 'instrucao/rh_instrucao.html')
 
@@ -29,6 +33,7 @@ def sucesso(request):
    # return render(request, 'instrucao/teste.html')
 
 # Criei uma (função) para recerber os dados do html
+@login_required # Só pessoas logada tem acesso a essa funsões
 def caminhaoFormsdados(request):
     if request.method == 'POST':
         form = CaminhaoForm(request.POST) 
@@ -47,7 +52,7 @@ def caminhaoFormsdados(request):
         return render(request, 'instrucao/rh_instrucao.html',{'form': form})
 
 
-
+@login_required
 def tratorFormsdados(request):
     if request.method == 'POST':
         form = TratorForm(request.POST)
@@ -66,7 +71,7 @@ def tratorFormsdados(request):
         return render(request, 'instrucao/rh_instrucao.html', {'form': form})
 
 
-
+@login_required
 def colhedoraFormsdados(request):
     if request.method == 'POST':
         form = ColhedoraForm(request.POST)
@@ -83,7 +88,7 @@ def colhedoraFormsdados(request):
         form = ColhedoraForm()
         return render(request, 'instrucao/rh_instrucao.html', {'form' : form})
 
-
+@login_required
 def LiderFormdados(request):
     if request.method == 'POST':
         form = LiderForm(request. POST)
@@ -102,18 +107,18 @@ def LiderFormdados(request):
         return render(request, 'instrucao/rh_instrucao.html',{'form' : form})
 
 
-#
+@login_required
 def BuscarGeral(request):
     query = request.GET.get('buscar', '')
     tipo = request.GET.get('tipo', '')
-    
+
     caminhao_resultados = []
     colhedora_resultados = []
     trator_resultados = []
     lider_resultados = []
 
-    if query:
-        if tipo == 'caminhao' or tipo == '':
+    if tipo == 'caminhao' or tipo == '':
+        if query:
             caminhao_resultados = Caminhao.objects.filter(
                 Q(data_caminhao__icontains=query) |
                 Q(hora_caminhao__icontains=query) |
@@ -137,8 +142,12 @@ def BuscarGeral(request):
                 Q(avaliacao_caminhao__icontains=query) |
                 Q(observacoes__icontains=query)
             )
-        if tipo == 'colhedora' or tipo == '':    
-            colhedora_resultados = Colhedora.objects.filter(  
+        else:
+            caminhao_resultados = Caminhao.objects.all()
+
+    if tipo == 'colhedora' or tipo == '':
+        if query:
+            colhedora_resultados = Colhedora.objects.filter(
                 Q(matricula_condutor_colhedora__icontains=query) |
                 Q(nome_condutor_colhedora__icontains=query) |
                 Q(equipamento_colhedora__icontains=query) |
@@ -161,8 +170,11 @@ def BuscarGeral(request):
                 Q(avaliacao_geral_instrutor_colhedora__icontains=query) |
                 Q(observacoes__icontains=query)
             )
+        else:
+            colhedora_resultados = Colhedora.objects.all()
 
-        if tipo == 'trator' or tipo == '':
+    if tipo == 'trator' or tipo == '':
+        if query:
             trator_resultados = Trator.objects.filter(
                 Q(data_trator__icontains=query) |
                 Q(hora_trator__icontains=query) |
@@ -190,10 +202,12 @@ def BuscarGeral(request):
                 Q(avaliacao_sincronismo_colheora_trator__icontains=query) |
                 Q(avaliacao_paralelismo_trator__icontains=query) |
                 Q(observacoes__icontains=query)
-
             )
+        else:
+            trator_resultados = Trator.objects.all()
 
-        if tipo == 'lider' or tipo == '':
+    if tipo == 'lider' or tipo == '':
+        if query:
             lider_resultados = Lider.objects.filter(
                 Q(data_lider__icontains=query) |
                 Q(hora_lider__icontains=query) |
@@ -210,10 +224,12 @@ def BuscarGeral(request):
                 Q(avaliacao_qualidade_colheita_lider__icontains=query) |
                 Q(avaliacao_aproveitamento_tempo_colhedora__icontains=query) |
                 Q(avaliacao_lideranca_equipe__icontains=query) |
-                Q(avaliacao_final_instrutor__icontains=query) |    
+                Q(avaliacao_final_instrutor__icontains=query) |
                 Q(observacoes__icontains=query)
+            )
+        else:
+            lider_resultados = Lider.objects.all()
 
-        )
     context = {
         'query': query,
         'tipo': tipo,
@@ -221,12 +237,11 @@ def BuscarGeral(request):
         'colhedora_resultados': colhedora_resultados,
         'trator_resultados': trator_resultados,
         'lider_resultados': lider_resultados,
-
     }
 
     return render(request, 'resultado_busca_geral.html', context)
 
-
+@login_required
 def instrucao(request):
     FUNCIONARIO = {
         "35037": "Venicius",
@@ -326,16 +341,28 @@ def editar_lider(request, id):
     return render(request, 'instrucao/editar_formulario.html', {'form': form})
 
 
+
 def login_usuario(request):
+
+    if request.user.is_authenticated: #Se estiver logado retornar pra pagina inicial
+        return redirect('instrucao:pagina_principal')
+
     if request.method == 'POST':
-        form = authenticationForm(request, data=request.POST)
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             usuario = form.get_user()
             login(request, usuario)
-            return redirect('instrucao:pagina_principal')  # certifique-se que está certo seu namespace e nome da url
+            return redirect('instrucao:pagina_principal')
         else:
             messages.error(request, 'Usuário ou senha inválidos.')
     else:
-        form = authenticationForm()
+        form = AuthenticationForm()
 
-    return render(request, 'registration/login.html', {'form': form})
+    return render(request, 'instrucao/login.html', {'form': form})
+
+
+@login_required
+def logout_usuario(request):
+    logout(request)
+    messages.success(request,"Você saiu da sua conta com sucesso.")
+    return redirect('instrucao:login_usuario')
