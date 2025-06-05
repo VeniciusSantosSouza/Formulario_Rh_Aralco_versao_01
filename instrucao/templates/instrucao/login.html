@@ -6,29 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{% static 'css/design_login.css' %}" rel="stylesheet">
     <title>login</title>
-    <style>
-    </style>
 </head>
 <body>
 
-    <div class= "img_logo_login">
-     <img src="{% static 'imagens/logo1.png'%}" alt="aralco">
+    <div class="img_logo_login">
+        <img src="{% static 'imagens/logo1.png' %}" alt="aralco">
     </div>
 
     <div class="interface_login">
-      <h2>Insira seus dados</h2>
-      <form id="loginForm" method="POST" action="{% url 'instrucao:login_usuario' %}">
-        {% csrf_token %}
-        <label for="id_username">Login:</label>
-        <input type="text" name="username" id="id_username" placeholder="Usuário" required>
+        <h2>Insira seus dados</h2>
+        <form id="loginForm" method="POST" action="{% url 'instrucao:login_usuario' %}">
+            {% csrf_token %}
+            <label for="id_username">Login:</label>
+            <input type="text" name="username" id="id_username" placeholder="Usuário" required>
 
-        <label for="id_password">Senha:</label>
-        <input type="password" name="password" id="id_password" placeholder="Senha" required>
+            <label for="id_password">Senha:</label>
+            <input type="password" name="password" id="id_password" placeholder="Senha" required>
 
-        <button type="submit">Entrar</button>
-        <div class="error" id="errorMsg"></div>
-      </form>
+            <button type="submit">Entrar</button>
+            <div class="error" id="errorMsg">
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if 'error' in message.tags %}
+                                <div class="error" id="errorMsg">
+                                    <p style="color: red; margin: 0;">{{ message }}</p>
+                                </div>
+                            {% elif 'success' in message.tags %}
+                                <div class="success" id="successMsg">
+                                    <p style="color: green; margin: 0;">{{ message }}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+            </div>
+        </form>
     <div>
- 
+
 </body>
 </html>

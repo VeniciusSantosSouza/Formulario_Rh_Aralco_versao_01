@@ -4,12 +4,12 @@ from django.core.exceptions import ValidationError
 
 
 class Funcionario(models.Model):
-    matricula_fincionario = models.IntegerField()
+    matricula_funcionario = models.IntegerField()
     nome_funcionario = models.CharField(max_length = 255)
 
 
 class Instrutores(models.Model):
-    matricula_instrutor = models.IntegerField()
+    matricula_instrutor = models.IntegerField   ()
     nome_instrutor = models.CharField(max_length = 255)
 
 

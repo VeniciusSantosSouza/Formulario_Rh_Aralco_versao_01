@@ -43,8 +43,8 @@ def caminhaoFormsdados(request):
             print("Formulário válido, salvando...")
             return render(request, 'instrucao/sucesso.html')
         else:
-            print("Formulario inválido, NÃO salvou nada.")
-            print(form.errors)
+            #print("Formulario inválido, NÃO salvou nada.")
+            #print(form.errors)
             
             return render(request, 'instrucao/erro.html')
     else:
@@ -62,8 +62,8 @@ def tratorFormsdados(request):
             form.save() 
             return render(request, 'instrucao/sucesso.html')
         else:
-            print("Formulário inválido, NÃO salvou nada.")
-            print(form.errors)
+            #print("Formulário inválido, NÃO salvou nada.")
+            #print(form.errors)
             
             return render(request, 'instrucao/erro.html')
     else:
@@ -80,8 +80,8 @@ def colhedoraFormsdados(request):
             form.save()
             return render(request, 'instrucao/sucesso.html')
         else:
-            print("Formulário inválido, NÃO salvou nada.")
-            print(form.errors) 
+            #print("Formulário inválido, NÃO salvou nada.")
+            #print(form.errors) 
 
             return render(request, 'instrucao/erro.html')
     else:
@@ -98,8 +98,8 @@ def LiderFormdados(request):
             form.save()
             return render(request, 'instrucao/sucesso.html')
         else:
-            print("Formulario inválido, NÃO salvou nada.")
-            print(form.errors)
+           # print("Formulario inválido, NÃO salvou nada.")
+           # print(form.errors)
 
             return render(request, 'instrucao/erro.html')
     else:

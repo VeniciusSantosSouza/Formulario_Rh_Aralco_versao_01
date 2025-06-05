@@ -45,19 +45,52 @@
         transform 0.1s ease;
         }
         
+
+        /*botões*/
         .botao_sair{
-          text-align: right;
-          margin: 20px;
+         position: absolute; 
+         top: 10px; 
+         right: 10px;
         }
 
-        .botao_sair 
+        .botao_sair button{
+          padding: 10px 20px;
+          background-color: #e74c3c;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: bold;
+          transition: background-color 0.3s ease;
+          }
 
-  
-    
+          .botao_buscar button{
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 20px;
+            width: 200px;
+          }
 
-    .botao-editar:hover {
-        background-color:rgb(21, 7, 112);
-    }
+          .botoes_env_limp button{
+            width: 100px;
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 20px;
+          }
 
         
         /*divisoria campos*/
@@ -89,10 +122,21 @@
        margin-bottom: 20px;
       }
 
-      .campos_preenchimento select{
+      .campos_busca select{
         height: 30px;
         width: 40%;
         font-size: 15px;
+        border: none;
+        border-radius: 5px;
+        margin-left: 40px;
+      }
+
+      .campos_busca input{
+         height: 30px;
+         width: 40%;
+         font-size: 15px;
+         border: none;
+         border-radius: 5px;
       }
 
       .pos_avl{
@@ -103,8 +147,16 @@
      .alinhamento_avl{
       margin-bottom: 10px;
      }
+
+     textarea{
+       width: 70%;       
+       height: 100px;      
+       resize: none;       
+       font-size: 15px;    
+       padding: 8px;      
+       border-radius: 5px;
+      }
      
-      /*divisoria campos*/
       
       .titulo{
         display: flex;

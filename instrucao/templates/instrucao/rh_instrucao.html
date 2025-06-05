@@ -17,7 +17,7 @@
      {% csrf_token %}
      <button type="submit">Encerrar sessão</button>
     </form>
-    
+
   <div class="cont_principal">
 
     <div class= "img_logo">
@@ -34,6 +34,7 @@
     <button onclick="showTab(2)">Trator 🚜</button>
     <button onclick="showTab(3)">Ranking líder ★</button>
     <button onclick="showTab(4)">Histórico de instrução 📋</button>
+    <button onclick="showTab(5)">Processo seletivo 📋</button>
   </div>
       
    <!-- Aba Caminhão --> 
@@ -155,14 +156,17 @@
         <label for="estrela5_caminhao">★★★★★</label>
       </div>
 
-            <h2> Observações </h2>
-            <textarea name="observacoes"></textarea><br>
-      </fieldset>
+         
+       <h2> Observações </h2>
+       <label for="iobsevacoes"></label>
+       <textarea id="iobservacoes" name="observacoes"></textarea><br>
+      
+    </fieldset>
 
-            <p>
-             <input type="submit" value= "Enviar" style="margin-right: 30px; width: 100px; height: 30px; font-size: 15px;">
-             <input type="reset" value="Limpar" style="width: 100px; height: 30px; font-size: 15px;">
-            </p>
+            <div class="botoes_env_limp">
+              <button type="submit">Enviar</button>
+              <button type="reset">Limpar</button>
+            </div>
           
         </div>
     </form> 
@@ -428,13 +432,15 @@
         </div>
 
             <h2> Observações </h2>
-            <textarea name="observacoes"></textarea><br>
+       <label for="iobsevacoes"></label>
+       <textarea id="iobservacoes" name="observacoes"></textarea><br>
+
       </fieldset>
 
-            <p>
-             <input type="submit" value= "Enviar" style="margin-right: 30px; width: 100px; height: 30px; font-size: 15px;">
-             <input type="reset" value= "Limpar" style="width: 100px; height: 30px; font-size: 15px;">
-            </p>
+            <div class="botoes_env_limp">
+              <button type="submit">Enviar</button>
+              <button type="reset">Limpar</button>
+            </div>
           </div>
     </form>
 
@@ -704,14 +710,15 @@
          <label for="estrela60_trator">★★★★★</label>
         </div>
 
-            <h2> Observações </h2>
-            <textarea name="observacoes"></textarea><br>
+           <h2> Observações </h2>
+           <label for="iobsevacoes"></label>
+           <textarea id="iobservacoes" name="observacoes"></textarea><br>
         </fieldset>
 
-          <p>
-            <input type="submit" value= "Enviar" style="margin-right: 30px; width: 100px; height: 30px; font-size: 15px;">
-            <input type="reset" value= "Limpar"style= "width: 100px; height: 30px; font-size: 15px;">
-          </p>
+          <div class="botoes_env_limp">
+            <button type="submit">Enviar</button>
+            <button type="reset">Limpar</button>
+          </div>
     </div>
     </form>
 
@@ -877,13 +884,14 @@
         </div>
 
        <h2> Observações </h2>
-       <textarea name="observacoes"></textarea><br>
+       <label for="iobsevacoes"></label>
+       <textarea id="iobservacoes" name="observacoes"></textarea><br>
       </fieldset>
         
-      <p>
-       <input type="submit" value= "Enviar" style="margin-right: 30px; width: 100px; height: 30px; font-size: 15px;">
-       <input type="button" value="Limpar" style="width: 100px; height: 30px; font-size: 15px;">
-      </p>
+      <div class="botoes_env_limp">
+        <button type="submit">Enviar</button>
+        <button type="reset">Limpar</button>
+      </div>
     </div>
   </form>
   
@@ -893,7 +901,7 @@
     <h2>Dados da instrução: Histórico de instruções</h2>
     
     <fieldset>
-    <div class="campos_preenchimento">
+    <div class="campos_busca">
       <input type="search" name="buscar" placeholder="Pesquisar..." 
              value="{{ query }}">
       <select name="tipo">
@@ -904,13 +912,46 @@
         <option value="lider" {% if tipo == 'lider' %}selected{% endif %}>Líder</option>
       </select>
 
-      
-
-
-      <input type="submit" value="Busca" style="width: 100px; height: 30px; font-size: 15px;">
+      <div class="botao_buscar">
+        <button type="submit">Buscar</button>
+      </div>
     </fieldset>
     </div>
   </div>
+
+  <form method="POST" action="{% url 'instrucao:coletar_dados_caminhao_forms' %}">
+        {% csrf_token %}
+        <div class="tab">
+      <h2> Processo seletivo</h2>
+    <fieldset>
+      <div class= "campos_preenchimento">
+      <label for="idata_seletivo"> Data:</label>
+      <input type="date" name="data_seletivo" id="idata_seletivo">
+
+      <label for="ihora_seletivo"> Hora:</label>
+      <input type="time" name="hora_seletivo" id="ihora_seletivo">
+      
+      <label for="imatricula_instrutor_seletivo"> Matrícula do instrutor:</label> 
+      <input type= "number" name = "matricula_instrutor_seletivo" id= "imatricula_instrutor_seletivo"/>
+
+      <label for="inome_instrutor_seletivo"> Nome do instrutor:</label>
+      <input type= "text" name = "nome_instrutor_seletivo" id= "inome_instrutor_seletivo"/>
+
+      <h2> Aprovados </h2>
+      <label for="iprocesso_seletivo_aprovados"></label>
+      <textarea id="iprocesso_seletivo_aprovados" name="processo_seletivo_aprovados"></textarea><br>
+
+      <h2> Reprovados </h2>
+      <label for="iprocesso_seletivo_reprovados"></label>
+      <textarea id="iprocesso_seletivo_reprovados" name="processo_seletivo_reprovados"></textarea><br>
+    </fieldset>
+
+      <div class="botoes_env_limp">
+        <button type="submit">Enviar</button>
+        <button type="reset">Limpar</button>
+      </div>
+    </div>
+  </form>
 
 </form>
 
@@ -979,6 +1020,33 @@
     } catch (error) {
       console.error('Erro ao processar dados dos funcionários:', error);
     }
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const now = new Date(); 
+
+    
+    const dataFormatada = now.toISOString().split('T')[0];
+
+   
+    const horas = now.getHours().toString().padStart(2, '0');
+    const minutos = now.getMinutes().toString().padStart(2, '0');
+    const horaFormatada = `${horas}:${minutos}`;
+
+    function veriValor(id, valor) {
+      const elemento = document.getElementById(id);
+      if (elemento) elemento.value = valor;
+    }
+
+    ['idata_caminhao', 'idata_colhedora', 'idata_trator', 'idata_lider','idata_seletivo'].forEach(id => {
+      veriValor(id, dataFormatada);
+    });
+
+    ['ihora_caminhao', 'ihora_colhedora', 'ihora_trator', 'ihora_lider','ihora_seletivo'].forEach(id => {
+      veriValor(id, horaFormatada);
+    });
   });
 </script>
 

@@ -134,6 +134,9 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = 'instrucao:login'
+LOGIN_URL = 'instrucao:login_usuario'
 LOGIN_REDIRECT_URL = 'instrucao:pagina_principal'
 
+
+SESSION_COOKIE_AGE = 1800
+SESSION_SAVE_EVERY_REQUEST = True
