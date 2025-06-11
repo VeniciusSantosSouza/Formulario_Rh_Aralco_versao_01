@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -5,7 +6,7 @@
     <title>Sucesso</title>
     <style>
         body {
-            background-color: #f0f8ff;
+            background-color:rgb(0, 0, 0);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             align-items: center;
@@ -48,9 +49,20 @@
         .sucesso-container a:hover {
             background-color: #45a049;
         }
+
+        .img_logo{
+            margin-bottom:400px;
+        }
     </style>
 </head>
 <body>
+
+    <div class= "img_logo">
+     <a href="{% url 'instrucao:pagina_principal'%}">
+     <img src="{% static 'imagens/logo1.png'%}" alt="aralco">
+     </a>
+    </div>
+    
     <div class="sucesso-container">
         <h1>✔ Dados salvos com sucesso!</h1>
         <p>O formulário foi enviado e armazenado corretamente.</p>

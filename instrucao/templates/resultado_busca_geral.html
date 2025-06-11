@@ -6,224 +6,639 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{% static 'css/design_resultado_busca.css' %}" rel="stylesheet">
     <title>Resultados da Busca</title>
-    
-    <style>
-
-    </style>
 </head>
 <body>
 
     <div class= "img_logo">
+     <a href="{% url 'instrucao:pagina_principal'%}">
      <img src="{% static 'imagens/logo1.png'%}" alt="aralco">
+     </a>
     </div>
 
-    <h2>Resultados para "{{ query }}"</h2>
-
+    <div class="container_tabelas">
     {% if caminhao_resultados %}
-    <h2>Caminhão</h2>
-    
+    <h2>Caminhão: ({{ caminhao_resultados|length }} Instruções Realizadas)</h2>
     {% for item in caminhao_resultados %}
 
-    <div class="tabela-responsiva">
     <table border="5" cellpadding="5" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Hora</th>
-                    <th>Matrícula do Instrutor</th>
-                    <th>Nome do Instrutor</th>
-                    <th>Matrícula do Condutor</th>
-                    <th>Nome do Condutor</th>
-                    <th>Equipamento</th>
-                    <th>Local de saída</th>
-                    <th>Hora de saída</th>
-                    <th>Km de saída</th>
-                    <th>Local de chegada</th>
-                    <th>Hora de chegada</th>
-                    <th>Km de chegada</th>
-                    <th>Viagem</th>
-                    <th>Média</th>
-                    <th>Ações</th>
-
+           <tbody>
+                    <th>Data:</th>
+                    <td>{{ item.data_caminhao }}</td>
                 </tr>
-            </thead>
-            <tbody>
-                
-                    <tr>
-                        <td>{{ item.data_caminhao }}</td>
-                        <td>{{ item.hora_caminhao }}</td>
-                        <td>{{ item.matricula_instrutor_caminhao }}</td>
-                        <td>{{ item.nome_instrutor_caminhao }}</td>
-                        <td>{{ item.matricula_condutor_caminhao }}</td>
-                        <td>{{ item.nome_condutor_caminhao }}</td>
-                        <td>{{ item.equipamento_caminhao }}</td>
-                        <td>{{ item.local_saida_caminhao}}</td>
-                        <td>{{ item.hora_saida_caminhao}}</td>
-                        <td>{{ item.km_saida_caminhao}}</td>
-                        <td>{{ item.local_chegada_caminhao}}</td>
-                        <td>{{ item.hora_chegada_caminhao}}</td>
-                        <td>{{ item.km_chegada_caminhao}}</td>
-                        <td>{{ item.viagem_caminhao}}</td>
-                        <td>{{ item.media_caminhao}}</td>
-                        <td>
-                            {% if user.is_staff %}
-                                <a href="{% url 'instrucao:editar_caminhao' item.id_caminhao %}" class="botao-editar">Editar</a>
-                            {% else %}
-                                -
-                            {% endif %}
-                        </td>
-                    </tr>
+
+                <tr>
+                    <th>Hora:</th>
+                    <td>{{ item.hora_caminhao }}</td>
+                </tr>
+
+                <tr>
+                    <th>Matrícula do Instrutor:</th>
+                    <td>{{ item.matricula_instrutor_caminhao }}</td>
+                </tr>
+
+                <tr>
+                    <th>Nome do Instrutor:</th>
+                    <td>{{ item.nome_instrutor_caminhao }}</td>
+                </tr>
+
+                <tr>
+                    <th>Matrícula do Condutor:</th>
+                    <td>{{ item.matricula_condutor_caminhao }}</td>
+                </tr>
+
+                <tr> 
+                    <th>Nome do Condutor:</th>
+                    <td>{{ item.nome_condutor_caminhao }}</td>
+                </tr>
+
+                <tr>
+                    <th>Equipamento:</th>
+                    <td>{{ item.equipamento_caminhao }}</td>
+                </tr>
+
+                <tr>
+                    <th>Local de saída:</th>
+                    <td>{{ item.local_saida_caminhao}}</td>
+                </tr>
+
+                <tr>
+                    <th>Hora de saída:</th>
+                    <td>{{ item.hora_saida_caminhao}}</td>
+                </tr>
+
+                <tr>
+                    <th>Km de saída:</th>
+                    <td>{{ item.km_saida_caminhao}}</td>
+                </tr>
+
+                <tr>
+                    <th>Local de chegada:</th>
+                    <td>{{ item.local_chegada_caminhao}}</td>
+                </tr>
+
+                <tr>
+                    <th>Hora de chegada:</th>
+                    <td>{{ item.hora_chegada_caminhao}}</td>
+                </tr>
+
+                <tr>
+                    <th>Km de chegada:</th>
+                    <td>{{ item.km_chegada_caminhao}}</td>
+                </tr>
+
+                <tr>
+                    <th>Viagem:</th>
+                    <td>{{ item.viagem_caminhao}}</td>
+                </tr>
+
+                <tr>
+                    <th>Média:</th>
+                    <td>{{ item.media_caminhao}}</td>
+                </tr>
+
+                <tr>
+                    <th>Operador mantenedor:</th>
+                    <td>{{ item.avaliacao_op_mantenedor_caminhao}}</td>
+                </tr>
+
+                <tr>
+                    <th>Digitação de bordo:</th>
+                    <td>{{ item.avaliacao_digitacao_bordo_caminhao}}</td>
+                </tr>
+
+                <tr>
+                    <th>Ações autorizadas:</th>
+                    <td>{{ item.acoes_autorizadas_caminhao}}</td>
+                </tr>
+
+                <tr>
+                    <th>Operação:</th>
+                    <td>{{ item.operacao_caminhao}}</td>
+                </tr>
+
+                <tr>
+                    <th>Avaliação do instrutor:</th>
+                    <td>{{ item.avaliacao_caminhao}}</td>
+                </tr>
+
+                <tr>
+                    <th>Observações:</th>
+                    <td>{{ item.observacoes}}</td>
+                </tr>
+
+                <tr>
+                    <th>Edição</th>
+                    <td>
+                     {% if user.is_staff %}
+                     <a href="{% url 'instrucao:editar_caminhao' item.id_caminhao %}" class="botao-editar">Editar formulário</a>
+                     {% else %}
+                         -
+                    {% endif %}
+                    </td>
+                </tr>
+
                 {% endfor %}
             </tbody>
-        </table>c
+        </table>
+
+         <button onclick="window.history.back()">⬅️ Voltar</button>
+         
 {% endif %}
     </div>
 
+
+    <div class="container_tabelas">
     {% if colhedora_resultados %}
-    <h2>Colhedora</h2>
+    <h2>Colhedora: ({{ colhedora_resultados|length }} Instruções Realizadas)</h2>
+    {% for item in colhedora_resultados %}
+
     <table border="5" cellpadding="5" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Hora</th>
-                    <th>Matrícula do instrutor</th>
-                    <th>Nome do instrutor</th>
-                    <th>Matrícula do condutor</th>
-                    <th>Nome do condutor</th>
-                    <th>Equipamento</th>
-                    <th>Hora de saída</th>
-                    <th>Hora de chegada</th>
-                    <th>Horímetro inicial</th>
-                    <th>Horímetro final</th>
-                    <th>Frente</th>
-                    <th>Ações</th>
-
-                </tr>
-            </thead>
             <tbody>
-                {% for item in colhedora_resultados %}
-                    <tr>
-                        <td>{{ item.data_colhedora }}</td>
-                        <td>{{ item.hora_colhedora }}</td>
-                        <td>{{ item.matricula_instrutor_colhedora }}</td>
-                        <td>{{ item.nome_instrutor_colhedora }}</td>
-                        <td>{{ item.matricula_condutor_colhedora }}</td>
-                        <td>{{ item.nome_condutor_colhedora }}</td>
-                        <td>{{ item.equipamento_colhedora }}</td>
-                        <td>{{ item.hora_saida_colhedora }}</td>
-                        <td>{{ item.hora_chegada_colhedora }}</td>
-                        <td>{{ item.horimetro_inicial_colhedora }}</td>
-                        <td>{{ item.horimtro_final_colhedora }}</td>
-                        <td>{{ item.frente_colhedora}}
-                        <td>
-                            {% if user.is_staff %}
-                                <a href="{% url 'instrucao:editar_colhedora' item.id_colhedora %}" class="botao-editar">Editar</a>
-                            {% else %}
-                                -
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
+                <tr>
+                    <th>Data:</th>
+                    <td>{{ item.data_colhedora }}</td>
+                </tr>
+
+                <tr>
+                    <th>Hora:</th>
+                    <td>{{ item.hora_colhedora }}</td>
+                </tr>
+
+                <tr>
+                    <th>Matrícula do Instrutor:</th>
+                    <td>{{ item.matricula_instrutor_colhedora }}</td>
+                </tr>
+
+                <tr>
+                    <th>Nome do Instrutor:</th>
+                    <td>{{ item.nome_instrutor_colhedora }}</td>
+                </tr>
+
+                <tr>
+                    <th>Matrícula do Condutor:</th>
+                    <td>{{ item.matricula_condutor_colhedora }}</td>
+                </tr>
+
+                <tr> 
+                    <th>Nome do Condutor:</th>
+                    <td>{{ item.nome_condutor_colhedora }}</td>
+                </tr>
+
+                <tr>
+                    <th>Equipamento:</th>
+                    <td>{{ item.equipamento_colhedora }}</td>
+                </tr>
+
+
+                <tr>
+                    <th>Hora de saída:</th>
+                    <td>{{ item.hora_saida_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Hora de chegada:</th>
+                    <td>{{ item.hora_chegada_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>horímetro inicial:</th>
+                    <td>{{ item.horimetro_inicial_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Horímetro final:</th>
+                    <td>{{ item.horimetro_final_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Frente:</th>
+                    <td>{{ item.frente_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Operador mantenedor:</th>
+                    <td>{{ item.avaliacao_operacao_mantendedor_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Digitação de bordo:</th>
+                    <td>{{ item.avaliacao_digitacao_bordo_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Ações autorizadas:</th>
+                    <td>{{ item.avaliacao_acoes_autorizadas_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Operação:</th>
+                    <td>{{ item.avaliacao_operacao_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Pressão do corta base:</th>
+                    <td>{{ item.avaliacao_pressao_corte_base_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Pressão do picador:</th>
+                    <td>{{ item.avaliacao_pressao_picador_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Configuração (CB central):</th>
+                    <td>{{ item.avaliacao_configuracao_cb_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Sincronismo transbordo:</th>
+                    <td>{{ item.avaliacao_sincronismo_transbordo_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Velocidade constante:</th>
+                    <td>{{ item.avaliacao_velocidade_constante_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Utilização de tecnologia:</th>
+                    <td>{{ item.avaliacao_utilizacao_tecnologia_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Senso de sono:</th>
+                    <td>{{ item.avaliacao_senso_de_dono_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Avaliação geral do instrutor:</th>
+                    <td>{{ item.avaliacao_geral_instrutor_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Observações:</th>
+                    <td>{{ item.observacoes}}</td>
+                </tr>
+
+                <tr>
+                    <th>Edição</th>
+                    <td>
+                     {% if user.is_staff %}
+                     <a href="{% url 'instrucao:editar_colhedora' item.id_colhedora %}" class="botao-editar">Editar formulário</a>
+                     {% else %}
+                         -
+                      {% endif %}
+                    </td>
+                </tr>
+                    {% endfor %}                    
+                <tbody>
         </table>
+
+         <button onclick="window.history.back()">⬅️ Voltar</button>
+
 {% endif %}
+    </div>
 
 
+    
+    <div class="container_tabelas">
     {% if trator_resultados %}
-        <h2>Trator</h2>
-        <table border="5" cellpadding="5" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Hora</th>
-                    <th>Matrícula Instrutor</th>
-                    <th>Nome Instrutor</th>
-                    <th>Matrícula Condutor</th>
-                    <th>Nome Condutor</th>
-                    <th>Equipamento</th>
-                    <th>Local de saída</th>
-                    <th>Hora de saída</th>
-                    <th>Local de chegada</th>
-                    <th>Hora de chegada</th>
-                    <th>Horímetro inicial</th>
-                    <th>Horímetro final</th>
-                    <th>Ações</th>
+        <h2>Trator: ({{ trator_resultados|length }} Instruções Realizadas)</h2>
+        {% for item in trator_resultados %}
 
-                </tr>
-            </thead>
+        <table border="5" cellpadding="5" cellspacing="0">
             <tbody>
-                {% for item in trator_resultados %}
-                    <tr>
-                        <td>{{ item.data_trator }}</td>
-                        <td>{{ item.hora_trator }}</td>
-                        <td>{{ item.matricula_instrutor_trator }}</td>
-                        <td>{{ item.nome_instrutor_trator }}</td>
-                        <td>{{ item.matricula_condutor_trator }}</td>
-                        <td>{{ item.nome_condutor_trator }}</td>
-                        <td>{{ item.equipamento_trator }}</td>
-                        <td>{{ item.local_saida_trator }}</td>
-                        <td>{{ item.hora_saida_trator }}</td>
-                        <td>{{ item.local_chegada_trator }}</td>
-                        <td>{{ item.hora_chegada_trator }}</td>
-                        <td>{{ item.horimetro_inicial_trator }}</td>
-                        <td>{{ item.horimetro_final_trator }}</td>
-                        <td>
-                            {% if user.is_staff %}
-                                <a href="{% url 'instrucao:editar_trator' item.id_trator %}" class="botao-editar">Editar</a>
-                            {% else %}
-                                -
-                            {% endif %}
-                        </td>                   
-                     </tr>
+                <tr>
+                    <th>Data:</th>
+                    <td>{{ item.data_trator }}</td>
+                </tr>
+
+                <tr>
+                    <th>Hora:</th>
+                    <td>{{ item.hora_trator }}</td>
+                </tr>
+
+                <tr>
+                    <th>Matrícula do Instrutor:</th>
+                    <td>{{ item.matricula_instrutor_trator }}</td>
+                </tr>
+
+                <tr>
+                    <th>Nome do Instrutor:</th>
+                    <td>{{ item.nome_instrutor_trator }}</td>
+                </tr>
+
+                <tr>
+                    <th>Matrícula do Condutor:</th>
+                    <td>{{ item.matricula_condutor_trator }}</td>
+                </tr>
+
+                <tr> 
+                    <th>Nome do Condutor:</th>
+                    <td>{{ item.nome_condutor_trator }}</td>
+                </tr>
+
+                <tr>
+                    <th>Equipamento:</th>
+                    <td>{{ item.equipamento_trator }}</td>
+                </tr>
+
+                <tr>
+                    <th>Local de saída:</th>
+                    <td>{{ item.local_saida_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Hora de saída:</th>
+                    <td>{{ item.hora_saida_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Local de chegada:</th>
+                    <td>{{ item.local_chegada_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Hora de chegada:</th>
+                    <td>{{ item.hora_chegada_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Horímetro inicial:</th>
+                    <td>{{ item.horimetro_inicial_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Horímetro final:</th>
+                    <td>{{ item.horimetro_final_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Frente:</th>
+                    <td>{{ item.frente_trator}}</td>
+                </tr>
+
+
+                <tr>
+                    <th>Operador mantenedor:</th>
+                    <td>{{ item.avaliacao_operador_mantendedor_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Digitação de bordo:</th>
+                    <td>{{ item.avaliacao_digitacao_bordo_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Ações autorizadas:</th>
+                    <td>{{ item.avaliacao_acoes_autorizadas_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Operação:</th>
+                    <td>{{ item.avaliacao_operacao_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Avaliação do instrutor:</th>
+                    <td>{{ item.avaliacao_instrutor_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Rotações:</th>
+                    <td>{{ item.avaliacao_rotacoes_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Senso de dono:</th>
+                    <td>{{ item.avaliacao_senso_dono_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Troca de marcha:</th>
+                    <td>{{ item.avaliacao_troca_marcha_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Troca de embreagem:</th>
+                    <td>{{ item.avaliacao_troca_embreagem_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Velocidade constante:</th>
+                    <td>{{ item.avaliacao_velocidade_constante_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Sincronismo colhedora:</th>
+                    <td>{{ item.avaliacao_sincronismo_colheora_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Paralelismo:</th>
+                    <td>{{ item.avaliacao_paralelismo_trator}}</td>
+                </tr>
+
+                <tr>
+                    <th>Observações:</th>
+                    <td>{{ item.observacoes}}</td>
+                </tr>
+
+                <tr>
+                    <th>Edição</th>
+                    <td>
+                     {% if user.is_staff %}
+                     <a href="{% url 'instrucao:editar_trator' item.id_trator %}" class="botao-editar">Editar formulário</a>
+                     {% else %}
+                         -
+                    {% endif %}
+                    </td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
+         
+        <button onclick="window.history.back()">⬅️ Voltar</button>
+
 {% endif %}
+    </div>
 
+
+    <div class="container_tabelas">
     {% if lider_resultados %}
-        <h2>Líder</h2>
-        <table border="5" cellpadding="5" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>Data</th>
-                    <th>Hora</th>
-                    <th>Matrícula do Instrutor</th>
-                    <th>Nome do Instrutor</th>
-                    <th>Matrícula do líder</th>
-                    <th>Nome do líder</th>
-                    <th>Frente</th>
-                    <th>Fazenda</th>
-                    <th>Unidade</th>
-                    <th>Ações</th>
+        <h2>Líder: ({{ lider_resultados|length }} Instruções Realizadas)</h2>
+        {% for item in lider_resultados %}
 
-                </tr>
-            </thead>
+        <table border="5" cellpadding="5" cellspacing="0">
             <tbody>
-                {% for item in lider_resultados %}
+                <tr>
+                    <th>Data:</th>
+                    <td>{{ item.data_lider }}</td>
+                </tr>
+
+                <tr>
+                    <th>Hora:</th>
+                    <td>{{ item.hora_lider }}</td>
+                </tr>
+
+                <tr>
+                    <th>Matrícula do Instrutor:</th>
+                    <td>{{ item.matricula_instrutor_lider }}</td>
+                </tr>
+
+                <tr>
+                    <th>Nome do Instrutor:</th>
+                    <td>{{ item.nome_instrutor_lider }}</td>
+                </tr>
+
+                <tr>
+                    <th>Matrícula do líder:</th>
+                    <td>{{ item.matricula_do_lider }}</td>
+                </tr>
+
+                <tr> 
+                    <th>Nome do líder:</th>
+                    <td>{{ item.nome_do_lider }}</td>
+                </tr>
+
+                <tr>
+                    <th>Frente:</th>
+                    <td>{{ item.frente_lider }}</td>
+                </tr>
+
+                <tr>
+                    <th>Fazenda:</th>
+                    <td>{{ item.fazenda_lider}}</td>
+                </tr>
+
+                <tr>
+                    <th>Unidade:</th>
+                    <td>{{ item.unidade_lider }}</td>
+                </tr>
+
+                <tr>
+                    <th>Organização da área de transbordamento:</th>
+                    <td>{{ item.avaliacao_organizacao_area_trasnbordamento_lider }}</td>
+                </tr>
+
+                <tr>
+                    <th>Abertura de aceiros - distribuição das colhedoras:</th>
+                    <td>{{ item.avaliacao_abertura_aceiros_lider }}</td>
+                </tr>
+
+                <tr>
+                    <th>Produção - Tempo de carregamento por metros lineares:</th>
+                    <td>{{ item.avaliacao_tempo_carregamento_metros_lineares_lider}}</td>
+                </tr>
+
+                <tr>
+                    <th>Qualidade de colheita - Vegetal - Mineral - Altura do corte:</th>
+                    <td>{{ item.avaliacao_qualidade_colheita_lider}}</td>
+                </tr>
+
+                <tr>
+                    <th>Aproveitamento do tempo da colhedora:</th>
+                    <td>{{ item.avaliacao_aproveitamento_tempo_colhedora}}</td>
+                </tr>
+
+                <tr>
+                    <th>Liderança com equipe:</th>
+                    <td>{{ item.avaliacao_lideranca_equipe}}</td>
+                </tr>
+
+                <tr>
+                    <th>Avaliação final do instrutor:</th>
+                    <td>{{ item.avaliacao_final_instrutor}}</td>
+                </tr>
+
+                <tr>
+                    <th>Observações:</th>
+                    <td>{{ item.observacoes}}</td>
+                </tr>
+
+                <tr>
+                    <th>Edição</th>
+                    <td>
+                     {% if user.is_staff %}
+                     <a href="{% url 'instrucao:editar_lider' item.id_lider %}" class="botao-editar">Editar formulário</a>
+                     {% else %}
+                         -
+                    {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+         
+        <button onclick="window.history.back()">⬅️ Voltar</button>
+
+{% endif %}
+    </div>
+
+<div class="container_tabelas">
+    {% if processo_resultados %}
+        <h2>Processo Seletivo: ({{ processo_resultados|length }} Instruções Realizadas)</h2>
+        {% for item in processo_resultados %}
+            <table border="5" cellpadding="5" cellspacing="0">
+                <tbody>
                     <tr>
-                        <td>{{ item.data_lider }}</td>
-                        <td>{{ item.hora_lider }}</td>
-                        <td>{{ item.matricula_instrutor_lider }}</td>
-                        <td>{{ item.nome_instrutor_lider }}</td>
-                        <td>{{ item.matricula_do_lider }}</td>
-                        <td>{{ item.nome_do_lider }}</td>
-                        <td>{{ item.frente_lider }}</td>
-                        <td>{{ item.fazenda_lider }}</td>
-                        <td>{{ item.unidade_lider }}</td>
-                        <td>
-                            {% if user.is_staff %}
-                                <a href="{% url 'instrucao:editar_lider' item.id_lider %}" class="botao-editar">Editar</a>
-                            {% else %}
-                                -
-                            {% endif %}
+                        <th>Data:</th>
+                        <td>{{ item.data_teste }}</td>
+                    </tr>
+                    <tr>
+                        <th>Hora:</th>
+                        <td>{{ item.hora_teste }}</td>
+                    </tr>
+                    <tr>
+                        <th>Matricula Instrutor:</th>
+                        <td>{{ item.matricula_instrutor_teste }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nome do Instrutor:</th>
+                        <td>{{ item.nome_instrutor_teste }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nome do Candidato:</th>
+                        <td>{{ item.nome_pessoa_teste }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tipo do Veículo:</th>
+                        <td>{{ item.tipo_veiculo_teste }}</td>
+                    </tr>
+                    <tr>
+                        <th>Horário do Teste:</th>
+                        <td>{{ item.hora_inicio_teste }}</td>
+                    </tr>
+                    <tr>
+                        <th>Horário final:</th>
+                        <td>{{ item.hora_final_teste }}</td>
+                    </tr>
+                    <tr>
+                        <th>Resultado:</th>
+                        <td>{{ item.resultado_teste }}</td>
+                    </tr>
+                    <tr>
+                        <th>Observacoes:</th>
+                        <td>{{ item.observacoes }}</td>
+                    </tr>
+                    {% if user.is_staff %}
+                    <tr>
+                        <th>Edição</th>
+                        <td> 
+                            <a href="{% url 'instrucao:editar_processo' item.id_processo %}" class="botao-editar">Editar formulário</a>
                         </td>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-{% endif %}
+                    {% endif %}
+                </tbody>
+            </table>
+<button onclick="window.history.back()">⬅️ Voltar</button>
+        {% endfor %}
+    {% endif %}
+</div>
 
-    {% if not caminhao_resultados and not trator_resultados and not colhedora_resultados and not lider_resultados %}
+
+
+    {% if not caminhao_resultados and not trator_resultados and not colhedora_resultados and not lider_resultados and not processo_resultados %}
         <p class="sem-resultado">Nenhum resultado encontrado.</p>
     {% endif %}
 

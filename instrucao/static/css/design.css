@@ -2,10 +2,11 @@
  *{
     
     font-family: "Share Tech", sans-serif;
+    
    
  }
  
- body{
+body{
     background-color: black;
     color: white;
     margin: 0;
@@ -13,193 +14,282 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
-  }
+    font-size: 25px;
+}
   
-      /*tabs de formulario e afins*/
-      .tab{
-       display: none;
-      }
+/*tabs de formulario e afins*/
+.tab{
+ display: none;
+}
 
-       .tab.active {
-       display: block;
-      }
+.tab.active {
+ display: block;
+}
 
-      .tabs{
-        display: flex;
-        gap: 0.5rem;            
-        padding: 0.5rem;       
-        border-radius: 0.5rem; 
-      }
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
 
-      .tabs button {
-        flex: 1;                    
-        border: 2px solid #ddd;      
-        border-radius: 0.5rem;       
-        padding: 0.75rem 1rem;      
-        font-size: 1rem; 
-        cursor: pointer;
-        transition: 
-        background 0.2s ease, 
-        border-color 0.2s ease, 
-        transform 0.1s ease;
-        }
+.tabs button {
+  flex: 1;
+  border: 2px solid #ddd;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+
+.tabs button.active {
+  background-color: rgb(51, 0, 255);
+  color: white;
+  border-color: rgb(51, 0, 255);
+}
+
+/* Efeito hover */
+.tabs button:hover {
+  background-color: rgb(51, 0, 255);
+}
+
+    
+/*botões*/
+.botao_sair{
+  position: absolute; 
+  top: 10px; 
+  right: 10px;
+}
+
+.botao_sair button{
+  padding: 10px 20px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.botao_buscar button{
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 20px;
+  width: 200px;
+}
+
+.botoes_env_limp button{
+  width: 100px;
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-right: 50px;
+}
+
+.pos_avl input[type="radio"] {
+  transform: scale(1.5);
+  margin-right: 8px;
+}
+
         
+/*divisoria campos*/
+fieldset {
+  border: 2px solid white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 900px; 
+  background-color: #111;
+  font-size: 20px;
+}
 
-        /*botões*/
-        .botao_sair{
-         position: absolute; 
-         top: 10px; 
-         right: 10px;
-        }
+.campos_preenchimento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
 
-        .botao_sair button{
-          padding: 10px 20px;
-          background-color: #e74c3c;
-          color: white;
-          border: none;
-          border-radius: 8px;
-          cursor: pointer;
-          font-weight: bold;
-          transition: background-color 0.3s ease;
-          }
+.campos_preenchimento label {
+  display: flex;
+  margin-bottom: 5px;
+}
 
-          .botao_buscar button{
-            padding: 10px 20px;
-            background-color: blue;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 15px;
-            font-weight: bold;
-            margin-top: 20px;
-            width: 200px;
-          }
+.campos_preenchimento input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  height: 40px;
+}
 
-          .botoes_env_limp button{
-            width: 100px;
-            padding: 10px 20px;
-            background-color: blue;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 15px;
-            font-weight: bold;
-            margin-top: 20px;
-          }
+.campos_busca select{
+  height: 40px;
+  width: 40%;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 40px;
+}
 
-        
-        /*divisoria campos*/
-        fieldset {
-         border: 2px solid white;
-         border-radius: 10px;
-         padding: 20px;
-         width: 100%;
-         max-width: 900px; 
-         background-color: #111;
-        }
+.campos_busca input{
+  height: 40px;
+  width: 40%;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+}
 
-      .campos_preenchimento {
-       display: grid;
-       grid-template-columns: 1fr;
-       gap: 15px;
-    }
+.pos_avl{
+  height: 50px;
+  margin-bottom: 50px;
+  width: 100%;
+}
 
-      .campos_preenchimento label {
-        display: flex;
-        margin-bottom: 5px;
-        }
+.alinhamento_avl{
+margin-bottom: 30px;
+width: 100%;
+}
 
-      .campos_preenchimento input {
-       padding: 5px;
-       border: 1px solid #ccc;
-       border-radius: 5px;
-       background-color: #ffffff;
-       margin-bottom: 20px;
-      }
-
-      .campos_busca select{
-        height: 30px;
-        width: 40%;
-        font-size: 15px;
-        border: none;
-        border-radius: 5px;
-        margin-left: 40px;
-      }
-
-      .campos_busca input{
-         height: 30px;
-         width: 40%;
-         font-size: 15px;
-         border: none;
-         border-radius: 5px;
-      }
-
-      .pos_avl{
-       height: 60px;
-       margin-bottom: 10px;
-      }
-
-     .alinhamento_avl{
-      margin-bottom: 10px;
-     }
-
-     textarea{
-       width: 70%;       
-       height: 100px;      
-       resize: none;       
-       font-size: 15px;    
-       padding: 8px;      
-       border-radius: 5px;
-      }
+textarea{
+  width: 98%;       
+  height: 100px;      
+  resize: none;       
+  font-size: 15px;    
+  padding: 8px;      
+  border-radius: 5px;
+}
      
       
-      .titulo{
-        display: flex;
-       color: rgb(255, 255, 255);
-       font-size: 20px;
-      }
+.titulo{
+  display: flex;
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+}
+
+.avaliacao_bloco label{
+  margin-top: 60px;
+}
+
+.stars {
+  display: flex;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.star {
+  color: rgb(255, 255, 255);
+  transition: color 0.2s;
+  margin-bottom: 40px;
+}
+    
+.star.selected {
+  color: gold;
+}
+
+.select_carga select{
+  height: 50px;
+  width: 100%;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.select_carga input{
+  height: 50px;
+  width: 100%;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+input[type="date"],
+input[type="time"] {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  color: #000;
+  padding: 12px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  height: 50px;
+}
+
+
+/*imagens*/
+.img_logo{
+  background-image: url("{% static 'imagens/logo1.png' %}");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
       
-      /*responsividade aparelhos móveis*/
-      @media (max-width: 700px){
-        body{
-          padding: 10px;
-          font-size: 15px;
-        }
+/*responsividade aparelhos móveis*/
+@media (max-width: 700px){
+body{
+  padding: 10px;
+  font-size: 15px;
+}
 
-        .tabs, .tab{
-          flex-direction: column;
-        }
+.tabs, .tab{
+  flex-direction: column;
 
-        .tabs button{
-          width: 100%;
-          font-size: 1rem;
-        }
+}
 
-        fieldset{
-          padding: 15px;
-        }
+.tabs button{
+  width: 100%;
+  font-size: 1rem;
 
-        .titulo{
-          font-size: 18px;
-          justify-content: center;
-          align-items: center;
+}
 
-        }
+fieldset{
+padding: 15px;
 
-        .pos_avl{
-      height: 60px;
-      margin-bottom: 10px;
-     }
+}
 
-     .alinhamento_avl{
-      margin-bottom: 10px;
-      height: 20px;
-     }
+.titulo{
+  font-size: 18px;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.pos_avl{
+  height: 60px;
+  margin-bottom: 10px;
+
+}
+
+.alinhamento_avl{
+  margin-bottom: 10px;
+  height: 20px;
+     
+}
 
      
-      }
+}
+

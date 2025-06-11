@@ -3,16 +3,7 @@ from .models import Caminhao
 from .models import Trator
 from .models import Colhedora
 from .models import Lider
-from .models import Funcionario
-
-class FuncionarioForm(forms.ModelForm):
-    class Meta:
-        model = Funcionario
-        fields = '__all__'
-        widgets = {
-            'matricula_funcionario': forms.NumberInput(),
-            'nome_funcionario': forms.TextInput(),
-        }
+from .models import ProcessoSeletivo
 
 
 
@@ -30,7 +21,7 @@ class CaminhaoForm(forms.ModelForm):
             'nome_condutor_caminhao': forms.TextInput(),
             'equipamento_caminhao': forms.NumberInput(),  
             'local_saida_caminhao': forms.TextInput(),
-            'km_saida_caminhao': forms.NumberInput(),
+            'hora_saida_caminhao': forms.TimeInput(attrs={'type': 'time'}),
             'local_chegada_caminhao': forms.TextInput(),
             'hora_chegada_caminhao': forms.TimeInput(attrs={'type': 'time'}),
             'km_chegada_caminhao': forms.NumberInput(),
@@ -96,7 +87,8 @@ class TratorForm(forms.ModelForm):
             'hora_chegada_trator': forms.TimeInput(attrs={'type': 'time'}),
             'horimetro_inicial_trator': forms.NumberInput(),
             'horimetro_final_trator': forms.NumberInput(),
-            'avaliacao_operador_mantenedor_trator': forms.NumberInput(),
+            'frente_trator': forms.NumberInput(),
+            'avaliacao_operador_mantendedor_trator': forms.NumberInput(),
             'avaliacao_digitacao_bordo_trator': forms.NumberInput(),
             'avaliacao_acoes_autorizadas_trator': forms.NumberInput(),
             'avaliacao_operacao_trator': forms.NumberInput(),
@@ -132,5 +124,22 @@ class LiderForm(forms.ModelForm):
             'avaliacao_aproveitamento_tempo_colhedora': forms.NumberInput(),
             'avaliacao_lideranca_equipe': forms.NumberInput(),
             'avaliacao_final_instrutor': forms.NumberInput(),
-            'observacoes': forms.Textarea(),  # corrigido de 'observacoes' para singular
+            'observacoes': forms.Textarea(), 
+        }
+
+class ProcessoSeletivoForm(forms.ModelForm):
+    class Meta:
+        model = ProcessoSeletivo
+        fields = '__all__'
+        widgets = {
+            'data_teste': forms.DateInput(attrs={'type': 'date'}),
+            'hora_teste': forms.TimeInput(attrs={'type': 'time'}),
+            'matricula_instrutor_teste': forms.TextInput(),
+            'nome_instrutor_teste': forms.TextInput(),
+            'nome_pessoa_teste': forms.TextInput(),
+            'tipo_veiculo_teste': forms.TextInput(),
+            'hora_inicio_teste': forms.TimeInput(attrs={'type': 'time'}),
+            'hora_final_teste' : forms.TimeInput(attrs={'type': 'time'}),
+            'resultado_teste': forms.TextInput(),
+            'observacoes': forms.Textarea(),
         }

@@ -3,118 +3,26 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Caminhão</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin: 40px 0 20px;
-            font-size: 2rem;
-        }
-
-        form {
-            background-color: #ffffff;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 30px 35px;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        form p {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #34495e;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="number"],
-        input[type="time"],
-        input[type="date"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1.5px solid #ccc;
-            border-radius: 6px;
-            font-size: 1rem;
-            background-color: #fdfdfd;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: #007bff;
-            outline: none;
-            box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            background-color: #007bff;
-            border: none;
-            color: white;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-            transform: scale(1.02);
-        }
-
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 25px;
-            color: #007bff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 640px) {
-            form {
-                padding: 20px;
-                margin: 0 15px;
-            }
-        }
-    </style>
+    <title>Editar histórico</title>
+    <link href="{% static 'css/editar_historico.css' %}" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <h1>Editar Instrução de Caminhão</h1>
+ 
+    <div class= "img_logo_login">
+     <a href="{% url 'instrucao:pagina_principal'%}">
+     <img src="{% static 'imagens/logo1.png'%}" alt="aralco">
+     </a>  
+    </div>
 
+
+    <h1>Editar Instrução </h1>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Salvar</button>
+        <button onclick="window.history.back()">Voltar</button>
     </form>
 
-    <a href="{% url 'instrucao:pagina_principal' %}">← Voltar à página principal</a>
 </body>
 </html>

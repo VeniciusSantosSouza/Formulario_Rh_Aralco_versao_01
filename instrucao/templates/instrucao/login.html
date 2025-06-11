@@ -10,11 +10,13 @@
 <body>
 
     <div class="img_logo_login">
+        <a href="{% url 'instrucao:pagina_principal'%}">
         <img src="{% static 'imagens/logo1.png' %}" alt="aralco">
+        </a>
     </div>
 
     <div class="interface_login">
-        <h2>Insira seus dados</h2>
+        <h2>Insira seus dados:</h2>
         <form id="loginForm" method="POST" action="{% url 'instrucao:login_usuario' %}">
             {% csrf_token %}
             <label for="id_username">Login:</label>

@@ -11,7 +11,7 @@
 
 
 .interface_login {
-            width: 350px;
+            width: 30%;
             background-color: white;
             padding: 40px;
             border-radius: 10px;
@@ -22,7 +22,7 @@
         .interface_login h2 {
             text-align: center;
             margin-bottom: 30px;
-            color: black;
+            color: rgb(0, 0, 0);
         }
 
         .interface_login input[type="text"],
@@ -42,10 +42,13 @@
             border: none;
             border-radius: 6px;
             cursor: pointer;
+            margin-top: 40px;
+            font-size: 20px;
         }
 
         .interface_login label{
             color: black;
+            font-size: 20px;
         } 
 
         .interface_login button:hover {

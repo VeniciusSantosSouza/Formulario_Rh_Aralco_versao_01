@@ -17,6 +17,7 @@ urlpatterns = [
    path('coletar_dados_trator_forms/',views.tratorFormsdados, name='coletar_dados_trator_forms'),
    path('coletar_dados_colhedora_forms/',views.colhedoraFormsdados, name='coletar_dados_colhedora_forms'),
    path('coletar_dados_lider_forms/',views.LiderFormdados, name='coletar_dados_lider_forms'),
+   path('coletar_dados_processo_seletivo_forms/', views.processo_seletivo, name='coletar_dados_processo_seletivo_forms'),
 
    #Rota mensagen
    path('sucesso/',views.sucesso, name="sucesso"),
@@ -34,9 +35,14 @@ urlpatterns = [
    path('editar/colhedora/<int:id>',views.editar_colhedora, name='editar_colhedora'),
    path('editar/trator/<int:id>/', views.editar_trator, name='editar_trator'),
    path('editar/lider/<int:id>/', views.editar_lider, name='editar_lider'),  
+   path('editar_processo/<int:id>/', views.editar_processo_seletivo, name='editar_processo'),
 
    #Rota de Login
    path('login_usuario', views.login_usuario, name='login_usuario'),
    path('logout/', views.logout_usuario, name='logout_usuario'),
+
+   #Rota de completar o formularios
+   path('buscar-funcionarios/', views.buscar_funcionarios, name='buscar_funcionarios'),
+   
    
 ]

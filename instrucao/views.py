@@ -1,4 +1,5 @@
 import os
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
@@ -7,15 +8,25 @@ from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.http import HttpResponse
 from django.template import loader
+from django.contrib.auth.decorators import login_required
+
 from .forms import CaminhaoForm
 from .forms import TratorForm
 from .forms import ColhedoraForm
 from .forms import LiderForm
+from .forms import ProcessoSeletivoForm
+
 from .models import Caminhao
 from .models import Trator
 from .models import Colhedora
 from .models import Lider
-from django.db.models import Q
+
+from .models import ProcessoSeletivo
+from .models import Funcionario
+from .models import Equipamento
+
+from django.http import JsonResponse
+
 
 @login_required
 def erro(request):
@@ -25,9 +36,9 @@ def erro(request):
 def sucesso(request):
     return render(request, 'instrucao/sucesso.html')
 
-#@login_required
-#def instrucao(request):
-    #return render(request, 'instrucao/rh_instrucao.html')
+@login_required
+def instrucao(request):
+    return render(request, 'instrucao/rh_instrucao.html')
 
 #def teste(request):
    # return render(request, 'instrucao/teste.html')
@@ -43,8 +54,8 @@ def caminhaoFormsdados(request):
             print("Formulário válido, salvando...")
             return render(request, 'instrucao/sucesso.html')
         else:
-            #print("Formulario inválido, NÃO salvou nada.")
-            #print(form.errors)
+            print("Formulario inválido, NÃO salvou nada.")
+            print(form.errors)
             
             return render(request, 'instrucao/erro.html')
     else:
@@ -62,13 +73,14 @@ def tratorFormsdados(request):
             form.save() 
             return render(request, 'instrucao/sucesso.html')
         else:
-            #print("Formulário inválido, NÃO salvou nada.")
-            #print(form.errors)
+            print("Formulário inválido, NÃO salvou nada.")
+            print(form.errors)
             
             return render(request, 'instrucao/erro.html')
     else:
         form = TratorForm()
         return render(request, 'instrucao/rh_instrucao.html', {'form': form})
+
 
 
 @login_required
@@ -80,8 +92,8 @@ def colhedoraFormsdados(request):
             form.save()
             return render(request, 'instrucao/sucesso.html')
         else:
-            #print("Formulário inválido, NÃO salvou nada.")
-            #print(form.errors) 
+            print("Formulário inválido, NÃO salvou nada.")
+            print(form.errors) 
 
             return render(request, 'instrucao/erro.html')
     else:
@@ -106,6 +118,20 @@ def LiderFormdados(request):
         form = LiderForm()
         return render(request, 'instrucao/rh_instrucao.html',{'form' : form})
 
+def processo_seletivo(request):
+    if request.method == 'POST':
+        form = ProcessoSeletivoForm(request.POST)
+        print("POST recebido:", request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, 'instrucao/sucesso.html')
+        else:
+            print("Formulário inválido:", form.errors)
+            return render(request, 'instrucao/erro.html', {'form': form})
+    else:
+        form = ProcessoSeletivoForm() 
+        return render(request, 'instrucao/rh_instrucao.html', {'form': form})
+
 
 @login_required
 def BuscarGeral(request):
@@ -116,6 +142,7 @@ def BuscarGeral(request):
     colhedora_resultados = []
     trator_resultados = []
     lider_resultados = []
+    processo_resultados = []
 
     if tipo == 'caminhao' or tipo == '':
         if query:
@@ -141,13 +168,15 @@ def BuscarGeral(request):
                 Q(operacao_caminhao__icontains=query) |
                 Q(avaliacao_caminhao__icontains=query) |
                 Q(observacoes__icontains=query)
-            )
+            ).order_by('-data_caminhao', '-hora_caminhao')
         else:
-            caminhao_resultados = Caminhao.objects.all()
+            caminhao_resultados = Caminhao.objects.all().order_by('-data_caminhao', '-hora_caminhao')
 
     if tipo == 'colhedora' or tipo == '':
         if query:
             colhedora_resultados = Colhedora.objects.filter(
+                Q(data_colhedora__icontains=query) |
+                Q(hora_colhedora__icontains=query) |
                 Q(matricula_condutor_colhedora__icontains=query) |
                 Q(nome_condutor_colhedora__icontains=query) |
                 Q(equipamento_colhedora__icontains=query) |
@@ -169,9 +198,9 @@ def BuscarGeral(request):
                 Q(avaliacao_senso_de_dono_colhedora__icontains=query) |
                 Q(avaliacao_geral_instrutor_colhedora__icontains=query) |
                 Q(observacoes__icontains=query)
-            )
+            ).order_by('-data_colhedora','-hora_colhedora')
         else:
-            colhedora_resultados = Colhedora.objects.all()
+            colhedora_resultados = Colhedora.objects.all().order_by('-data_colhedora','-hora_colhedora')
 
     if tipo == 'trator' or tipo == '':
         if query:
@@ -189,7 +218,8 @@ def BuscarGeral(request):
                 Q(hora_chegada_trator__icontains=query) |
                 Q(horimetro_inicial_trator__icontains=query) |
                 Q(horimetro_final_trator__icontains=query) |
-                Q(avaliacao_operador_mantenedor_trator__icontains=query) |
+                Q(frente_trator__icontains=query) |
+                Q(avaliacao_operador_mantendedor_trator__icontains=query) |
                 Q(avaliacao_digitacao_bordo_trator__icontains=query) |
                 Q(avaliacao_acoes_autorizadas_trator__icontains=query) |
                 Q(avaliacao_operacao_trator__icontains=query) |
@@ -202,9 +232,10 @@ def BuscarGeral(request):
                 Q(avaliacao_sincronismo_colheora_trator__icontains=query) |
                 Q(avaliacao_paralelismo_trator__icontains=query) |
                 Q(observacoes__icontains=query)
-            )
+            ).order_by('-data_trator','-hora_trator')
         else:
-            trator_resultados = Trator.objects.all()
+            trator_resultados = Trator.objects.all().order_by('-data_trator','-hora_trator')
+
 
     if tipo == 'lider' or tipo == '':
         if query:
@@ -226,9 +257,48 @@ def BuscarGeral(request):
                 Q(avaliacao_lideranca_equipe__icontains=query) |
                 Q(avaliacao_final_instrutor__icontains=query) |
                 Q(observacoes__icontains=query)
-            )
+            ).order_by('-data_lider','-hora_lider')
         else:
-            lider_resultados = Lider.objects.all()
+            lider_resultados = Lider.objects.all().order_by('-data_lider','-hora_lider')
+    
+    if tipo == 'processo' or tipo == '':
+        if query:
+            processo_resultados = ProcessoSeletivo.objects.filter(
+                Q(data_teste__icontains=query) |
+                Q(hora_teste__icontains=query) |
+                Q(matricula_instrutor_teste__icontains=query) |
+                Q(nome_instrutor_teste__icontains=query) |
+                Q(nome_pessoa_teste__icontains=query) |
+                Q(tipo_veiculo_teste__icontains=query) |
+                Q(hora_inicio_teste__icontains=query) |
+                Q(hora_final_teste__icontains=query) |
+                Q(resultado_teste__icontains=query) |
+                Q(observacoes__icontains=query)
+            ).order_by('-data_teste','-hora_teste')
+        else:
+            processo_resultados = ProcessoSeletivo.objects.all().order_by('-data_teste','-hora_teste')
+
+    total_caminhoes = Caminhao.objects.count()
+    total_colhedoras = Colhedora.objects.count()
+    total_tratores = Trator.objects.count()
+    total_lideres = Lider.objects.count()
+    total_processos = ProcessoSeletivo.objects.count()
+    total_geral_instrucoes = (
+        total_caminhoes +
+        total_colhedoras +
+        total_tratores +
+        total_lideres +
+        total_processos
+    )
+
+
+    total_geral_instrucoes_encontradas = (
+        len(caminhao_resultados) +
+        len(colhedora_resultados) +
+        len(trator_resultados) +
+        len(lider_resultados) +
+        len(processo_resultados)
+    )
 
     context = {
         'query': query,
@@ -237,32 +307,20 @@ def BuscarGeral(request):
         'colhedora_resultados': colhedora_resultados,
         'trator_resultados': trator_resultados,
         'lider_resultados': lider_resultados,
+        'processo_resultados': processo_resultados,
+
+
+        'total_caminhoes': total_caminhoes,
+        'total_colhedoras': total_colhedoras,
+        'total_tratores': total_tratores,
+        'total_lideres': total_lideres,
+        'total_processos': total_processos,
+        'total_geral_instrucoes': total_geral_instrucoes,
+        'total_geral_instrucoes_encontradas': total_geral_instrucoes_encontradas,
     }
 
     return render(request, 'resultado_busca_geral.html', context)
 
-@login_required
-def instrucao(request):
-    FUNCIONARIO = {
-        "35037": "Venicius",
-        "38028": "Bryan",
-        "39040": "Joselita",
-        "36060": "Uéverson",
-        "10010": "Gleyci",
-        "30148": "Lehh",
-        
-    }
-
-    INSTRUTOR = {
-        "10011": "Robinho",
-        "20011": "Tiago",
-        "30011": "PBenjamin Franklin",
-    }
-
-    return render(request, 'instrucao/rh_instrucao.html', {
-        'funcionario': FUNCIONARIO,
-        'instrutor': INSTRUTOR,
-        })  
 
 
 
@@ -341,6 +399,21 @@ def editar_lider(request, id):
     return render(request, 'instrucao/editar_formulario.html', {'form': form})
 
 
+@staff_member_required
+def editar_processo_seletivo(request, id):
+    processo = get_object_or_404(ProcessoSeletivo, id_processo=id)
+    if request.method == 'POST':
+        form = ProcessoSeletivoForm(request.POST, instance=processo)
+        if form.is_valid():
+            form.save()
+            return render(request, 'instrucao/sucesso.html')
+        else:
+            return render(request, 'instrucao/erro.html', {'form': form})
+    else:
+        form = ProcessoSeletivoForm(instance=processo)
+        return render(request, 'instrucao/editar_formulario.html', {'form': form})
+
+
 
 def login_usuario(request):
 
@@ -366,3 +439,28 @@ def logout_usuario(request):
     logout(request)
     messages.success(request,"Você saiu da sua conta com sucesso.")
     return redirect('instrucao:login_usuario')
+
+
+@staff_member_required
+def buscar_funcionarios(request):
+    termo = request.GET.get('q', '')
+
+    if termo:
+        funcionarios = Funcionario.objects.filter(cod_funcionario__icontains=termo).values('cod_funcionario', 'nome')[:10]
+    else:
+        funcionarios = []
+
+    return JsonResponse(list(funcionarios), safe=False)
+
+
+def busca_equipamento(request):
+    termo = request.GET.get('q', '')
+
+    if termo.isdigit():
+        equipamentos = Equipamento.objects.filter(codigo_equip=int(termo)).values('codigo_equip')
+    else:
+        equipamentos = []
+
+    return JsonResponse(list(equipamentos), safe=False)
+
+
